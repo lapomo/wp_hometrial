@@ -75,19 +75,35 @@ class Admin_Fields {
             'hometrial_general_tabs' => array(
                 array(
                     'name'      => 'enable_login_limit',
-                    'label'     => __( 'Limit Hometrialist Use', 'hometrial' ),
+                    'label'     => __( 'Limit HomeTrial Use', 'hometrial' ),
                     'type'      => 'checkbox',
                     'default'   => 'off',
-                    'desc'      => esc_html__( 'Enable this option to allow only the logged-in users to use the Hometrialist feature.', 'hometrial' ),
+                    'desc'      => esc_html__( 'Enable this option to allow only the logged-in users to use the Hometrial feature.', 'hometrial' ),
                 ),
 
                 array(
                     'name'      => 'logout_button',
-                    'label'     => __( 'Hometrialist Icon Tooltip Text', 'hometrial' ),
-                    'desc'      => __( 'Enter a text for the tooltip that will be shown when someone hover over the Hometrialist icon.', 'hometrial' ),
+                    'label'     => __( 'HomeTrial Icon Tooltip Text', 'hometrial' ),
+                    'desc'      => __( 'Enter a text for the tooltip that will be shown when someone hover over the Hometrial icon.', 'hometrial' ),
                     'type'      => 'text',
                     'default'   => __( 'Please login', 'hometrial' ),
                      'class'    => 'depend_user_login_enable'
+                ),
+
+                array(
+                    'name'      => 'max_num_of_items',
+                    'label'     => __( 'Max number of items', 'hometrial' ),
+                    'desc'      => __( 'Enter a number for how many products can be added to the HomeTrial List.', 'hometrial' ),
+                    'type'      => 'number',
+                    'default'   => __( '4', 'hometrial' ),
+                ),
+
+                array(
+                    'name'      => 'max_num_reached_msg',
+                    'label'     => __( 'Max Number reached Message', 'hometrial' ),
+                    'desc'      => __( 'Enter a text that will be shown to the user, when he tries to add more products to the HomeTrial List than allowed.', 'hometrial' ),
+                    'type'      => 'text',
+                    'default'   => __( 'Your Home Trial Basket is full. Click here to view it.', 'hometrial' ),
                 ),
 
             ),

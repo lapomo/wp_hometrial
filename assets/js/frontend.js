@@ -25,9 +25,18 @@
                 success: function ( response ) {
                     if ( response ) {
                         $this.removeClass('hometrial-btn');
-                        $this.removeClass('loading').addClass('added');
+                        $this.removeClass('loading');
+                        $this.addClass('hometrial-btn-exist');
                         $this.html( addedText );
-                        $body.find('.hometrial-counter').html( response.data.item_count );
+                        $body.find('.hometrial-counter').html( response.data.item_count ); 
+                        //TODO use item_count here to disable button / add extra class
+                        // something like this
+                        console.log(response.data.item_count);
+                        if(response.data.item_count >=  response.data.max_num_of_items){ // TODO declare the max number of items somewhere more global
+                            $body.find('.hometrial-btn').addClass('hometrial-btn-disabled');
+                            $body.find('.hometrial-btn').removeClass('hometrial-btn');
+                        }
+                        // end draft
                     } else {
                         console.log( 'Something wrong loading compare data' );
                     }
@@ -36,12 +45,64 @@
                     console.log('Something wrong with AJAX response.', response );
                 },
                 complete: function () {
-                    $this.removeClass('hometrial-btn');
-                    $this.removeClass('loading').addClass('added');
+                    $this.removeClass('loading');
                     $this.html( addedText );
                 },
             });
 
+        });
+
+        // give error message when trying to add more than limit home trial items
+        $body.on('click', 'a.hometrial-btn-disabled', function(e) {
+            e.preventDefault();
+            console.log('maximum number of home trial items reached');
+        });
+
+        // remove product from hometrialist in shop
+        $body.on('click', 'a.hometrial-btn-exist', function (e) {
+            var $this = $(this),
+                id = $this.data('product_id'),
+                addedText = $this.data('added-text');
+
+            e.preventDefault();
+
+            $this.addClass('loading');
+
+            $.ajax({
+                url: HomeTrial.ajaxurl,
+                data: {
+                    action: 'hometrial_remove_from_list',
+                    id: id,
+                },
+                dataType: 'json',
+                method: 'GET',
+                success: function ( response ) {
+                    if ( response ) {
+                        $this.removeClass('hometrial-btn-exist');
+                        $this.removeClass('loading');
+                        $this.addClass('hometrial-btn');
+                        $this.html( addedText );
+                        $body.find('.hometrial-counter').html( response.data.item_count ); 
+                        //TODO use item_count here to disable button / add extra class
+                        // something like this
+                        console.log(response.data.item_count);
+                        if(response.data.item_count < response.data.max_num_of_items){ // TODO declare the max number of items somewhere more global
+                            $body.find('.hometrial-btn-disabled').addClass('hometrial-btn');
+                            $body.find('.hometrial-btn-disabled').removeClass('hometrial-btn-disabled');
+                        }
+                        // end draft
+                    } else {
+                        console.log( 'Something wrong loading compare data' );
+                    }
+                },
+                error: function ( response ) {
+                    console.log('Something wrong with AJAX response.', response );
+                },
+                complete: function () {
+                    $this.removeClass('loading');
+                    $this.html( addedText );
+                },
+            });
         });
     }
 
@@ -92,7 +153,7 @@
 
     });
 
-    // Quentity
+    // Quantity
     $("div.hometrial-table-content").on("change", "input.qty", function() {
         $(this).closest('tr').find( "[data-quantity]" ).attr( "data-quantity", this.value );
     });

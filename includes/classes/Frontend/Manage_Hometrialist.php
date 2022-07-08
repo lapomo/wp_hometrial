@@ -606,5 +606,9 @@ class Manage_Hometrialist {
         
     }
 
+    public function max_num_of_items(){
+        return hometrial_get_option( 'max_num_of_items', 'hometrial_general_tabs', '4' );
+    }
+
 
 }

@@ -58,6 +58,7 @@ class Ajax {
         }else{
             wp_send_json_success([
                 'item_count' => count( \HomeTrial\Frontend\Manage_Hometrialist::instance()->get_products_data() ),
+                'max_num_of_items' => \HomeTrial\Frontend\Manage_Hometrialist::instance()->max_num_of_items(),
                 'message' => __( 'Product successfully added!', 'hometrial' )
             ]);
         }
@@ -78,6 +79,7 @@ class Ajax {
         }else{
             wp_send_json_success([
                 'item_count' => count( \HomeTrial\Frontend\Manage_Hometrialist::instance()->get_products_data() ),
+                'max_num_of_items' => \HomeTrial\Frontend\Manage_Hometrialist::instance()->max_num_of_items(),
                 'message' => __( 'Product successfully deleted!', 'hometrial' )
             ]);
         }

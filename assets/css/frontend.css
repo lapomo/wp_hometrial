@@ -57,6 +57,7 @@ a.hometrial-button.loading img{
     display: inline-flex;
     align-items: center;
     position: relative;
+
 }
 
 .hometrial-button:focus {
@@ -65,21 +66,21 @@ a.hometrial-button.loading img{
 }
  
 .hometrial-button svg {
-    fill:currentColor;
+    fill: grey;
     transition: all 200ms ease-out;
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 25px;
 }
 .hometrial-button svg + span{
     margin-left: 6px;
 }
  
-.hometrial-button:hover svg,
-.hometrialist-toggle.added svg {
-    fill:currentColor;
+.hometrial-button.hometrial-btn:hover svg,
+.hometrial-button.hometrial-btn-exist svg {
+    fill: black;
 }
  
-.hometrial-button svg .loading,
+.hometrial-button svg .disabled,
 .hometrial-button svg .check {
     opacity: 0;
 }
@@ -91,25 +92,59 @@ a.hometrial-button.loading img{
 .hometrial-button.added svg .heart,.hometrial-button.hometrial-btn-exist svg .heart {
     opacity: 0;
 }
- 
-.hometrial-button.loading svg .loading,
-.hometrial-button.loading:before {
-    animation:loading 500ms 0ms infinite normal linear;
-    transform-origin: center;
+
+.hometrial-button.hometrial-btn-disabled svg .disabled {
     opacity: 1;
 }
- 
-.hometrial-button.loading svg .heart {
-    opacity:0;
+
+.hometrial-button.hometrial-btn-disabled svg .check, .hometrial-button.hometrial-btn-disabled svg .heart {
+    opacity: 0;
 }
+ 
+.hometrial-button.loading svg .heart,
+.hometrial-button.loading svg .check,
+.hometrial-button.loading:before {
+    animation:loading 1000ms 0ms infinite normal linear;
+    transform-origin: center;
+}
+
+ 
 .hometrial-btn-text {
     display: flex;
     align-items: center;
 }
+
+.hometrial-limit-pop {
+    visibility: hidden;
+    width: 220px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -110px;;
+}
+
+.hometrial-button.hometrial-btn-disabled + .hometrial-limit-pop:active,
+.hometrial-button.hometrial-btn-disabled:focus + .hometrial-limit-pop {
+    visibility: visible;
+}
  
 @keyframes loading {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.9);
+    }
 }
 
 /* Table style*/
@@ -398,8 +433,8 @@ a.hometrial-button.loading img{
     width: 16px;
     height: 16px;
     border-radius: 8px;
-    right: 0;
-    top: -8px;
+    right: 1px;
+    top: -3px;
     background: #ec5858;
     color: #fff;
     font-size: 11px;

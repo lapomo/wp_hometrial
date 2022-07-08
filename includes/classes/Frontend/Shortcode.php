@@ -63,6 +63,20 @@ class Shortcode {
         $product_page_btn_position  = hometrial_get_option( 'product_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
         $button_style               = hometrial_get_option( 'button_style', 'hometrial_style_settings_tabs', 'default' );
         $enable_login_limit = hometrial_get_option( 'enable_login_limit', 'hometrial_general_tabs', 'off' );
+        $max_num_of_items = hometrial_get_option( 'max_num_of_items', 'hometrial_general_tabs', '4' );
+        $max_num_reached_msg = hometrial_get_option( 'max_num_reached_msg', 'hometrial_general_tabs', 'Your Home Trial List is full. Click here to view it.' );
+
+        
+        // lapos edit
+        $limit_reached = false;
+        // $items_count = \HomeTrial\Manage_Data::instance()->item_count(get_current_user_id()); // this function is never used, but could be more efficient to get list count
+        // $items_count = count( \HomeTrial\Frontend\Manage_Hometrialist::instance()->get_products_data() ); // this function is used to display items count on counter
+        $items_count = count( \HomeTrial\Frontend\Manage_Hometrialist::instance()->get_hometrialist_products() ); // this is another function which is used inside get_products_data, dont know why this one is not used for the counter
+        if ( $items_count >= $max_num_of_items ){
+            $limit_reached = true;
+        }
+        //
+
 
         if ( !is_user_logged_in() && $enable_login_limit == 'on' ) {
             $button_text   = hometrial_get_option( 'logout_button','hometrial_general_tabs', 'Please login' );
@@ -74,7 +88,6 @@ class Shortcode {
         }
 
         $button_class = array(
-            'hometrial-btn',
             'hometrial-button',
             'hometrial-shop-'.$shop_page_btn_position,
             'hometrial-product-'.$product_page_btn_position,
@@ -84,8 +97,10 @@ class Shortcode {
             $button_class[] = 'button';
         }
 
-        if ( $has_product === true && ( $key = array_search( 'hometrial-btn', $button_class ) ) !== false ) {
-            unset( $button_class[$key] );
+        if ( $limit_reached === true && $has_product === false) {
+            $button_class[] = 'hometrial-btn-disabled';
+        } else if ($limit_reached === false && $has_product === false ){
+            $button_class[] = 'hometrial-btn';
         }
 
 
@@ -114,6 +129,7 @@ class Shortcode {
             'button_exist_text' => $added_button_icon.$button_exist_text,
             'has_product'       => $has_product,
             'template_name'     => ( $has_product === true ) ? 'exist' : 'add',
+            'max_num_reached_msg' => $max_num_reached_msg,
         );
         $atts = shortcode_atts( $default_atts, $atts, $content );
         return Manage_Hometrialist::instance()->button_html( $atts );
