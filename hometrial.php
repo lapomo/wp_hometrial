@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: HomeTrial - Hometrialist for WooCommerce
- * Description: WooCommerce Product hometrialist plugin
- * Plugin URI: https://hasthemes.com/plugins/
- * Author: HasTheme
- * Author URI: https://hasthemes.com/
- * Version: 1.3.0
+ * Plugin Name: Home Trial
+ * Description: WooCommerce Product Home Trial Plugin - based on WishSuite 1.3.0 by https://hasthemes.com/
+ * Plugin URI: 
+ * Author: Lapo
+ * Author URI: https://laposolutions.de/
+ * Version: 1.0.0
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: hometrial
@@ -24,7 +24,7 @@ final class HomeTrial_Base{
      *
      * @var string
      */
-    const version = '1.3.0';
+    const version = '1.0.0';
 
     /**
      * [$_instance]
