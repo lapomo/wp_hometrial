@@ -60,7 +60,7 @@ class Dashboard {
         $this->redirect_option_page();
 
         // Recommended plugin
-        $this->plugin_recommendations();
+        // $this->plugin_recommendations();
 
     }
 
@@ -113,7 +113,7 @@ class Dashboard {
             self::MENU_CAPABILITY,
             self::MENU_PAGE_SLUG,
             [ $this,'dashboard' ],
-            'dashicons-heart',
+            'dashicons-admin-home',
             59
         );
 
