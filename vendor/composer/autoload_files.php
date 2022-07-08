@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ecaf24f0c429cf706d11f02c1a2d9a13' => $baseDir . '/includes/helper-functions.php',
+    'ecaf24f0c429cf706d11f02c1a2d9a12' => $baseDir . '/includes/helper-functions.php',
 );
