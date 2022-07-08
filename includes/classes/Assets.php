@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite;
+namespace HomeTrial;
 /**
  * Assets handlers class
  */
@@ -37,14 +37,14 @@ class Assets {
      */
     public function get_scripts() {
         return [
-            'wishsuite-admin' => [
-                'src'     => WISHSUITE_ASSETS . '/js/admin.js',
-                'version' => WISHSUITE_VERSION,
+            'hometrial-admin' => [
+                'src'     => HOMETRIAL_ASSETS . '/js/admin.js',
+                'version' => HOMETRIAL_VERSION,
                 'deps'    => [ 'jquery' ]
             ],
-            'wishsuite-frontend' => [
-                'src'     => WISHSUITE_ASSETS . '/js/frontend.js',
-                'version' => WISHSUITE_VERSION,
+            'hometrial-frontend' => [
+                'src'     => HOMETRIAL_ASSETS . '/js/frontend.js',
+                'version' => HOMETRIAL_VERSION,
                 'deps'    => [ 'jquery', 'wc-add-to-cart-variation' ]
             ],
         ];
@@ -57,13 +57,13 @@ class Assets {
      */
     public function get_styles() {
         return [
-            'wishsuite-admin' => [
-                'src'     => WISHSUITE_ASSETS . '/css/admin.css',
-                'version' => WISHSUITE_VERSION,
+            'hometrial-admin' => [
+                'src'     => HOMETRIAL_ASSETS . '/css/admin.css',
+                'version' => HOMETRIAL_VERSION,
             ],
-            'wishsuite-frontend' => [
-                'src'     => WISHSUITE_ASSETS . '/css/frontend.css',
-                'version' => WISHSUITE_VERSION,
+            'hometrial-frontend' => [
+                'src'     => HOMETRIAL_ASSETS . '/css/frontend.css',
+                'version' => HOMETRIAL_VERSION,
             ],
         ];
     }
@@ -88,16 +88,16 @@ class Assets {
         }
 
         // Inline CSS
-        wp_add_inline_style( 'wishsuite-frontend', $this->inline_style() );
+        wp_add_inline_style( 'hometrial-frontend', $this->inline_style() );
         
         // Frontend Localize data
         $option_data = array(
-            'after_added_to_cart' => wishsuite_get_option( 'after_added_to_cart', 'wishsuite_table_settings_tabs', 'on' ),
+            'after_added_to_cart' => hometrial_get_option( 'after_added_to_cart', 'hometrial_table_settings_tabs', 'on' ),
         );
         
-        if( is_user_logged_in() &&  wishsuite_get_option( 'enable_login_limit', 'wishsuite_general_tabs', 'off' ) === 'on' ){
+        if( is_user_logged_in() &&  hometrial_get_option( 'enable_login_limit', 'hometrial_general_tabs', 'off' ) === 'on' ){
             $option_data['btn_limit_login_off'] = 'off';
-        }else if( !is_user_logged_in() && wishsuite_get_option( 'enable_login_limit', 'wishsuite_general_tabs', 'off' ) === 'on' ){
+        }else if( !is_user_logged_in() && hometrial_get_option( 'enable_login_limit', 'hometrial_general_tabs', 'off' ) === 'on' ){
             $option_data['btn_limit_login_off'] = 'on';
         }
 
@@ -108,18 +108,18 @@ class Assets {
 
         // Admin Localize data
         $setting_page = 0;
-        if( isset( $_GET['page'] ) && $_GET['page'] == 'wishsuite' ){
+        if( isset( $_GET['page'] ) && $_GET['page'] == 'hometrial' ){
             $setting_page = 1;
         }
         $admin_option_data = array(
-            'btn_icon_type'        => wishsuite_get_option( 'button_icon_type', 'wishsuite_style_settings_tabs', 'default' ),
-            'added_btn_icon_type'  => wishsuite_get_option( 'addedbutton_icon_type', 'wishsuite_style_settings_tabs', 'default' ),
-            'shop_btn_position'    => wishsuite_get_option( 'shop_btn_position', 'wishsuite_settings_tabs', 'after_cart_btn' ),
-            'product_btn_position' => wishsuite_get_option( 'product_btn_position', 'wishsuite_settings_tabs', 'after_cart_btn' ),
-            'button_style'         => wishsuite_get_option( 'button_style', 'wishsuite_style_settings_tabs', 'default' ),
-            'table_style'          => wishsuite_get_option( 'table_style', 'wishsuite_style_settings_tabs', 'default' ),
-            'enable_social_share'  => wishsuite_get_option( 'enable_social_share','wishsuite_table_settings_tabs','on' ),
-            'enable_login_limit'   => wishsuite_get_option( 'enable_login_limit','wishsuite_general_tabs','off' ),
+            'btn_icon_type'        => hometrial_get_option( 'button_icon_type', 'hometrial_style_settings_tabs', 'default' ),
+            'added_btn_icon_type'  => hometrial_get_option( 'addedbutton_icon_type', 'hometrial_style_settings_tabs', 'default' ),
+            'shop_btn_position'    => hometrial_get_option( 'shop_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' ),
+            'product_btn_position' => hometrial_get_option( 'product_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' ),
+            'button_style'         => hometrial_get_option( 'button_style', 'hometrial_style_settings_tabs', 'default' ),
+            'table_style'          => hometrial_get_option( 'table_style', 'hometrial_style_settings_tabs', 'default' ),
+            'enable_social_share'  => hometrial_get_option( 'enable_social_share','hometrial_table_settings_tabs','on' ),
+            'enable_login_limit'   => hometrial_get_option( 'enable_login_limit','hometrial_general_tabs','off' ),
         );
         $admin_localize_data = array(
             'ajaxurl'    => admin_url( 'admin-ajax.php' ),
@@ -127,8 +127,8 @@ class Assets {
             'option_data'=> $admin_option_data,
         );
 
-        wp_localize_script( 'wishsuite-frontend', 'WishSuite', $localize_data );
-        wp_localize_script( 'wishsuite-admin', 'WishSuite', $admin_localize_data );
+        wp_localize_script( 'hometrial-frontend', 'HomeTrial', $localize_data );
+        wp_localize_script( 'hometrial-admin', 'HomeTrial', $admin_localize_data );
         
     }
 
@@ -141,66 +141,66 @@ class Assets {
         $button_custom_css = $table_custom_css = '';
 
         // Button Custom Style
-        if( 'custom' === wishsuite_get_option( 'button_style', 'wishsuite_style_settings_tabs', 'default' ) ){
+        if( 'custom' === hometrial_get_option( 'button_style', 'hometrial_style_settings_tabs', 'default' ) ){
 
-            $btn_padding = wishsuite_dimensions( 'button_custom_padding','wishsuite_style_settings_tabs','padding' );
-            $btn_margin  = wishsuite_dimensions( 'button_custom_margin','wishsuite_style_settings_tabs','margin' );
-            $btn_border_radius = wishsuite_dimensions( 'button_custom_border_radius','wishsuite_style_settings_tabs','border-radius' );
+            $btn_padding = hometrial_dimensions( 'button_custom_padding','hometrial_style_settings_tabs','padding' );
+            $btn_margin  = hometrial_dimensions( 'button_custom_margin','hometrial_style_settings_tabs','margin' );
+            $btn_border_radius = hometrial_dimensions( 'button_custom_border_radius','hometrial_style_settings_tabs','border-radius' );
 
-            $btn_color    = wishsuite_generate_css('button_color','wishsuite_style_settings_tabs','color');
-            $btn_bg_color = wishsuite_generate_css('background_color','wishsuite_style_settings_tabs','background-color');
+            $btn_color    = hometrial_generate_css('button_color','hometrial_style_settings_tabs','color');
+            $btn_bg_color = hometrial_generate_css('background_color','hometrial_style_settings_tabs','background-color');
 
             // Hover
-            $btn_hover_color    = wishsuite_generate_css('button_hover_color','wishsuite_style_settings_tabs','color');
-            $btn_hover_bg_color = wishsuite_generate_css('hover_background_color','wishsuite_style_settings_tabs','background-color');
+            $btn_hover_color    = hometrial_generate_css('button_hover_color','hometrial_style_settings_tabs','color');
+            $btn_hover_bg_color = hometrial_generate_css('hover_background_color','hometrial_style_settings_tabs','background-color');
 
             $button_custom_css = "
-                .wishsuite-button{
+                .hometrial-button{
                     {$btn_padding}
                     {$btn_margin}
                     {$btn_color}
                     {$btn_bg_color}
                     {$btn_border_radius}
                 }
-                .wishsuite-button:hover{
+                .hometrial-button:hover{
                     {$btn_hover_color}
                     {$btn_hover_bg_color}
                 }
             ";
         }
 
-        // Wishlist table style
-        if( 'custom' === wishsuite_get_option( 'table_style', 'wishsuite_style_settings_tabs', 'default' ) ){
+        // Hometrialist table style
+        if( 'custom' === hometrial_get_option( 'table_style', 'hometrial_style_settings_tabs', 'default' ) ){
 
-            $heading_color    = wishsuite_generate_css('table_heading_color','wishsuite_style_settings_tabs','color');
-            $heading_bg_color = wishsuite_generate_css('table_heading_bg_color','wishsuite_style_settings_tabs','background-color');
-            $heading_border_color = wishsuite_generate_css('table_heading_border_color','wishsuite_style_settings_tabs','border-color');
+            $heading_color    = hometrial_generate_css('table_heading_color','hometrial_style_settings_tabs','color');
+            $heading_bg_color = hometrial_generate_css('table_heading_bg_color','hometrial_style_settings_tabs','background-color');
+            $heading_border_color = hometrial_generate_css('table_heading_border_color','hometrial_style_settings_tabs','border-color');
 
-            $border_color = wishsuite_generate_css('table_border_color','wishsuite_style_settings_tabs','border-color');
+            $border_color = hometrial_generate_css('table_border_color','hometrial_style_settings_tabs','border-color');
 
             // Add To cart Button
-            $button_color = wishsuite_generate_css('table_cart_button_color','wishsuite_style_settings_tabs','color');
-            $button_bg_color = wishsuite_generate_css('table_cart_button_bg_color','wishsuite_style_settings_tabs','background-color');
-            $button_hover_color = wishsuite_generate_css('table_cart_button_hover_color','wishsuite_style_settings_tabs','color');
-            $button_hover_bg_color = wishsuite_generate_css('table_cart_button_hover_bg_color','wishsuite_style_settings_tabs','background-color');
+            $button_color = hometrial_generate_css('table_cart_button_color','hometrial_style_settings_tabs','color');
+            $button_bg_color = hometrial_generate_css('table_cart_button_bg_color','hometrial_style_settings_tabs','background-color');
+            $button_hover_color = hometrial_generate_css('table_cart_button_hover_color','hometrial_style_settings_tabs','color');
+            $button_hover_bg_color = hometrial_generate_css('table_cart_button_hover_bg_color','hometrial_style_settings_tabs','background-color');
 
 
             $table_custom_css = "
-                .wishsuite-table-content table thead > tr{
+                .hometrial-table-content table thead > tr{
                     {$heading_border_color}
                 }
-                .wishsuite-table-content table thead > tr th{
+                .hometrial-table-content table thead > tr th{
                     {$heading_color}
                     {$heading_bg_color}
                 }
-                .wishsuite-table-content table,.wishsuite-table-content table tbody > tr{
+                .hometrial-table-content table,.hometrial-table-content table tbody > tr{
                     {$border_color}
                 }
             ";
 
             if( $button_color || $button_bg_color ){
                 $table_custom_css .= "
-                    .wishsuite-table-content table .wishsuite-addtocart{
+                    .hometrial-table-content table .hometrial-addtocart{
                         {$button_color}
                         {$button_bg_color}
                     }
@@ -208,7 +208,7 @@ class Assets {
             }
             if( $button_hover_color || $button_hover_bg_color ){
                 $table_custom_css .= "
-                    .wishsuite-table-content table .wishsuite-addtocart:hover{
+                    .hometrial-table-content table .hometrial-addtocart:hover{
                         {$button_hover_color}
                         {$button_hover_bg_color}
                     }

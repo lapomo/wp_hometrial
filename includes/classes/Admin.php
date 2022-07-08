@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite;
+namespace HomeTrial;
 
 /**
  * Admin handlers class

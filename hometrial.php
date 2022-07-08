@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: WishSuite - Wishlist for WooCommerce
- * Description: WooCommerce Product wishlist plugin
+ * Plugin Name: HomeTrial - Hometrialist for WooCommerce
+ * Description: WooCommerce Product hometrialist plugin
  * Plugin URI: https://hasthemes.com/plugins/
  * Author: HasTheme
  * Author URI: https://hasthemes.com/
  * Version: 1.3.0
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: wishsuite
+ * Text Domain: hometrial
  * Domain Path: /languages
  * WC tested up to: 6.6.0
  */
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Plugin Main Class
  */
-final class WishSuite_Base{
+final class HomeTrial_Base{
 
     /**
      * Plugin version
@@ -49,8 +49,8 @@ final class WishSuite_Base{
     private function __construct(){
         $this->define_constants();
         $this->includes();
-        register_activation_hook( WISHSUITE_FILE, [ $this, 'activate' ] );
-        if( empty( get_option('wishsuite_version', '') ) ){
+        register_activation_hook( HOMETRIAL_FILE, [ $this, 'activate' ] );
+        if( empty( get_option('hometrial_version', '') ) ){
             $this->activate();
         }
         add_action( 'init', [ $this, 'i18n' ] );
@@ -63,13 +63,13 @@ final class WishSuite_Base{
      * @return void
      */
     public function define_constants() {
-        define( 'WISHSUITE_VERSION', self::version );
-        define( 'WISHSUITE_FILE', __FILE__ );
-        define( 'WISHSUITE_PATH', __DIR__ );
-        define( 'WISHSUITE_URL', plugins_url( '', WISHSUITE_FILE ) );
-        define( 'WISHSUITE_DIR', plugin_dir_path( WISHSUITE_FILE ) );
-        define( 'WISHSUITE_ASSETS', WISHSUITE_URL . '/assets' );
-        define( 'WISHSUITE_BASE', plugin_basename( WISHSUITE_FILE ) );
+        define( 'HOMETRIAL_VERSION', self::version );
+        define( 'HOMETRIAL_FILE', __FILE__ );
+        define( 'HOMETRIAL_PATH', __DIR__ );
+        define( 'HOMETRIAL_URL', plugins_url( '', HOMETRIAL_FILE ) );
+        define( 'HOMETRIAL_DIR', plugin_dir_path( HOMETRIAL_FILE ) );
+        define( 'HOMETRIAL_ASSETS', HOMETRIAL_URL . '/assets' );
+        define( 'HOMETRIAL_BASE', plugin_basename( HOMETRIAL_FILE ) );
     }
 
     /**
@@ -77,7 +77,7 @@ final class WishSuite_Base{
      * @return [void]
      */
     public function i18n() {
-        load_plugin_textdomain( 'wishsuite', false, dirname( plugin_basename( WISHSUITE_FILE ) ) . '/languages/' );
+        load_plugin_textdomain( 'hometrial', false, dirname( plugin_basename( HOMETRIAL_FILE ) ) . '/languages/' );
     }
 
     /**
@@ -85,7 +85,7 @@ final class WishSuite_Base{
      * @return [void]
      */
     public function includes(){
-        require_once WISHSUITE_PATH . '/vendor/autoload.php';
+        require_once HOMETRIAL_PATH . '/vendor/autoload.php';
         if ( ! function_exists('is_plugin_active') ){ include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); }
     }
 
@@ -96,23 +96,23 @@ final class WishSuite_Base{
      */
     public function init_plugin() {
 
-        WishSuite\Assets::instance();
+        HomeTrial\Assets::instance();
 
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            WishSuite\Ajax::instance();
+            HomeTrial\Ajax::instance();
         }
 
         if ( is_admin() ) {
             $this->admin_notices();
-            WishSuite\Admin::instance();
+            HomeTrial\Admin::instance();
         }
-        WishSuite\Frontend::instance();
+        HomeTrial\Frontend::instance();
 
         // add image size
         $this->set_image_size();
 
         // let's filter the woocommerce image size
-        add_filter( 'woocommerce_get_image_size_wishsuite-image', [ $this, 'wc_image_filter_size' ], 10, 1 );
+        add_filter( 'woocommerce_get_image_size_hometrial-image', [ $this, 'wc_image_filter_size' ], 10, 1 );
         
 
     }
@@ -123,7 +123,7 @@ final class WishSuite_Base{
      * @return void
      */
     public function activate() {
-        $installer = new WishSuite\Installer();
+        $installer = new HomeTrial\Installer();
         $installer->run();
     }
 
@@ -132,7 +132,7 @@ final class WishSuite_Base{
      * @return void
      */
     public function admin_notices() {
-        $notice = new WishSuite\Admin\Notices();
+        $notice = new HomeTrial\Admin\Notices();
         $notice->notice();
     }
 
@@ -141,10 +141,10 @@ final class WishSuite_Base{
      */
     public function set_image_size(){
 
-        $image_dimention = wishsuite_get_option( 'image_size', 'wishsuite_table_settings_tabs', array( 'width'=>80,'height'=>80 ) );
+        $image_dimention = hometrial_get_option( 'image_size', 'hometrial_table_settings_tabs', array( 'width'=>80,'height'=>80 ) );
         if( isset( $image_dimention ) && is_array( $image_dimention ) ){
-            $hard_crop = !empty( wishsuite_get_option( 'hard_crop', 'wishsuite_table_settings_tabs' ) ) ? true : false;
-            add_image_size( 'wishsuite-image', absint( $image_dimention['width'] ), absint( $image_dimention['height'] ), $hard_crop );
+            $hard_crop = !empty( hometrial_get_option( 'hard_crop', 'hometrial_table_settings_tabs' ) ) ? true : false;
+            add_image_size( 'hometrial-image', absint( $image_dimention['width'] ), absint( $image_dimention['height'] ), $hard_crop );
         }
 
     }
@@ -155,8 +155,8 @@ final class WishSuite_Base{
      */
     public function wc_image_filter_size(){
 
-        $image_dimention = wishsuite_get_option( 'image_size', 'wishsuite_table_settings_tabs', array( 'width'=>80,'height'=>80 ) );
-        $hard_crop = !empty( wishsuite_get_option( 'hard_crop', 'wishsuite_table_settings_tabs' ) ) ? true : false;
+        $image_dimention = hometrial_get_option( 'image_size', 'hometrial_table_settings_tabs', array( 'width'=>80,'height'=>80 ) );
+        $hard_crop = !empty( hometrial_get_option( 'hard_crop', 'hometrial_table_settings_tabs' ) ) ? true : false;
 
         if( isset( $image_dimention ) && is_array( $image_dimention ) ){
             return array(
@@ -173,13 +173,13 @@ final class WishSuite_Base{
 /**
  * Initializes the main plugin
  *
- * @return WishSuite
+ * @return HomeTrial
  */
-function WishSuite() {
-    if( ! class_exists('Woolentor_WishSuite_Base') ){
-        return WishSuite_Base::instance();
+function HomeTrial() {
+    if( ! class_exists('Woolentor_HomeTrial_Base') ){
+        return HomeTrial_Base::instance();
     }
 }
 
 // Get the plugin running.
-WishSuite();
+HomeTrial();

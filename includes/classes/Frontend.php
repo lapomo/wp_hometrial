@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite;
+namespace HomeTrial;
 /**
  * Frontend handlers class
  */
@@ -27,7 +27,7 @@ class Frontend {
      */
     private function __construct() {
         Frontend\Shortcode::instance();
-        Frontend\Manage_Wishlist::instance();
+        Frontend\Manage_Hometrialist::instance();
     }
 
 }

@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite;
+namespace HomeTrial;
 /**
  * Installer class
  */
@@ -21,20 +21,20 @@ class Installer {
      * Add time and version on DB
      */
     public function add_version() {
-        $installed = get_option( 'wishsuite_installed' );
+        $installed = get_option( 'hometrial_installed' );
 
         if ( ! $installed ) {
-            update_option( 'wishsuite_installed', time() );
+            update_option( 'hometrial_installed', time() );
         }
 
-        update_option( 'wishsuite_version', WISHSUITE_VERSION );
+        update_option( 'hometrial_version', HOMETRIAL_VERSION );
     }
 
     /**
      * [add_redirection_flag] redirection flug
      */
     public function add_redirection_flag(){
-        add_option( 'wishsuite_do_activation_redirect', true );
+        add_option( 'hometrial_do_activation_redirect', true );
     }
 
     /**
@@ -49,7 +49,7 @@ class Installer {
             $charset_collate = $wpdb->get_charset_collate();
         }
 
-        $schema = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}wishsuite_list` (
+        $schema = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}hometrial_list` (
           `id` bigint( 20 ) unsigned NOT NULL AUTO_INCREMENT,
           `user_id` bigint( 20 ) NULL DEFAULT NULL,
           `product_id` bigint(20) NULL DEFAULT NULL,
@@ -72,13 +72,13 @@ class Installer {
     private function create_page() {
         if ( function_exists( 'WC' ) ) {
             $create_page_id = wc_create_page(
-                sanitize_title_with_dashes( _x( 'wishsuite', 'page_slug', 'wishsuite' ) ),
+                sanitize_title_with_dashes( _x( 'hometrial', 'page_slug', 'hometrial' ) ),
                 '',
-                __( 'WishSuite', 'wishsuite' ),
-                '<!-- wp:shortcode -->[wishsuite_table]<!-- /wp:shortcode -->'
+                __( 'HomeTrial', 'hometrial' ),
+                '<!-- wp:shortcode -->[hometrial_table]<!-- /wp:shortcode -->'
             );
             if( $create_page_id ){
-                wishsuite_update_option( 'wishsuite_table_settings_tabs','wishlist_page', $create_page_id );
+                hometrial_update_option( 'hometrial_table_settings_tabs','hometrialist_page', $create_page_id );
             }
         }
     }
@@ -90,7 +90,7 @@ class Installer {
     public static function drop_tables() {
         global $wpdb;
         $tables = [
-            "{$wpdb->prefix}wishsuite_list",
+            "{$wpdb->prefix}hometrial_list",
         ];
         foreach ( $tables as $table ) {
             $wpdb->query( "DROP TABLE IF EXISTS {$table}" );

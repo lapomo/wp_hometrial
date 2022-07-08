@@ -31,11 +31,11 @@ private static $installed = array (
     array (
     ),
     'reference' => NULL,
-    'name' => 'hasthemes/wishsuite',
+    'name' => 'hasthemes/hometrial',
   ),
   'versions' => 
   array (
-    'hasthemes/wishsuite' => 
+    'hasthemes/hometrial' => 
     array (
       'pretty_version' => '1.0.0+no-version-set',
       'version' => '1.0.0.0',

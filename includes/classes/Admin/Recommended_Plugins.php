@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite\Admin;
+namespace HomeTrial\Admin;
 /**
  * Recommended Plugins handlers class
  */

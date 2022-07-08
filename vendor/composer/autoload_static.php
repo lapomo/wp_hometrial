@@ -13,12 +13,12 @@ class ComposerStaticInit6a5ae03253a00fb783937f726b9113c4
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
-            'WishSuite\\' => 10,
+            'HomeTrial\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WishSuite\\' => 
+        'HomeTrial\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes/classes',
         ),

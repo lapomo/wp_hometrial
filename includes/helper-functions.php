@@ -1,20 +1,20 @@
 <?php
 /**
- * [wishsuite_is_woocommerce]
+ * [hometrial_is_woocommerce]
  * @return [boolean]
  */
-function wishsuite_is_woocommerce() {
+function hometrial_is_woocommerce() {
     return class_exists( 'WooCommerce' );
 }
 
 /**
- * [wishsuite_get_option]
+ * [hometrial_get_option]
  * @param  [string] $option
  * @param  [string] $section
  * @param  string $default
  * @return [string]
  */
-function wishsuite_get_option( $option, $section, $default = '' ){
+function hometrial_get_option( $option, $section, $default = '' ){
     $options = get_option( $section );
     if ( isset( $options[$option] ) ) {
         return $options[$option];
@@ -23,13 +23,13 @@ function wishsuite_get_option( $option, $section, $default = '' ){
 }
 
 /**
- * [wishsuite_update_option]
+ * [hometrial_update_option]
  * @param  [string] $option
  * @param  [string] $section
  * @param  string $new_value
  * @return [string]
  */
-function wishsuite_update_option( $section, $option_key, $new_value ){
+function hometrial_update_option( $section, $option_key, $new_value ){
     $options_data = get_option( $section );
     if( isset( $options_data[$option_key] ) ){
         $options_data[$option_key] = $new_value;
@@ -40,13 +40,13 @@ function wishsuite_update_option( $section, $option_key, $new_value ){
 }
 
 /**
- * [wishsuite_get_post_list]
+ * [hometrial_get_post_list]
  * @param  string $post_type
  * @return [array]
  */
-function wishsuite_get_post_list( $post_type = 'page' ){
+function hometrial_get_post_list( $post_type = 'page' ){
     $options = array();
-    $options['0'] = __('Select','wishsuite');
+    $options['0'] = __('Select','hometrial');
     $perpage = -1;
     $all_post = array( 'posts_per_page' => $perpage, 'post_type'=> $post_type );
     $post_terms = get_posts( $all_post );
@@ -59,35 +59,35 @@ function wishsuite_get_post_list( $post_type = 'page' ){
 }
 
 /**
- * [wishsuite_locate_template]
+ * [hometrial_locate_template]
  * @param  [string] $tmp_name Template name
  * @return [Template path]
  */
-function wishsuite_locate_template( $tmp_name ) {
+function hometrial_locate_template( $tmp_name ) {
     $woo_tmp_base = WC()->template_path();
 
     $woo_tmp_path     = $woo_tmp_base . $tmp_name; //active theme directory/woocommerce/
     $theme_tmp_path   = '/' . $tmp_name; //active theme root directory
-    $plugin_tmp_path  = WISHSUITE_DIR . 'includes/templates/' . $tmp_name;
+    $plugin_tmp_path  = HOMETRIAL_DIR . 'includes/templates/' . $tmp_name;
 
     $located = locate_template( [ $woo_tmp_path, $theme_tmp_path ] );
 
     if ( ! $located && file_exists( $plugin_tmp_path ) ) {
-        return apply_filters( 'wishsuite_locate_template', $plugin_tmp_path, $tmp_name );
+        return apply_filters( 'hometrial_locate_template', $plugin_tmp_path, $tmp_name );
     }
 
-    return apply_filters( 'wishsuite_locate_template', $located, $tmp_name );
+    return apply_filters( 'hometrial_locate_template', $located, $tmp_name );
 }
 
 /**
- * [wishsuite_get_template]
+ * [hometrial_get_template]
  * @param  [string]  $tmp_name Template name
  * @param  [array]  $args template argument array
  * @param  boolean $echo
  * @return [void]
  */
-function wishsuite_get_template( $tmp_name, $args = null, $echo = true ) {
-    $located = wishsuite_locate_template( $tmp_name );
+function hometrial_get_template( $tmp_name, $args = null, $echo = true ) {
+    $located = hometrial_locate_template( $tmp_name );
 
     if ( $args && is_array( $args ) ) {
         extract( $args );
@@ -103,72 +103,72 @@ function wishsuite_get_template( $tmp_name, $args = null, $echo = true ) {
 }
 
 /**
- * [wishsuite_get_page_url]
+ * [hometrial_get_page_url]
  * @return [URL]
  */
-function wishsuite_get_page_url() {
-    $page_id = wishsuite_get_option( 'wishlist_page', 'wishsuite_table_settings_tabs' );
+function hometrial_get_page_url() {
+    $page_id = hometrial_get_option( 'hometrialist_page', 'hometrial_table_settings_tabs' );
     return get_permalink( $page_id );
 }
 
 /**
- * [wishsuite_add_to_cart]
+ * [hometrial_add_to_cart]
  * @param  [object] $product
  * @return [HTML]
  */
-function wishsuite_add_to_cart( $product, $quentity ){
-    return \WishSuite\Frontend\Manage_Wishlist::instance()->add_to_cart_html( $product, $quentity );
+function hometrial_add_to_cart( $product, $quentity ){
+    return \HomeTrial\Frontend\Manage_Hometrialist::instance()->add_to_cart_html( $product, $quentity );
 }
 
 /**
  * Get default fields List
  * return array
  */
-function wishsuite_get_default_fields(){
+function hometrial_get_default_fields(){
     $fields = array(
-        'remove'      => esc_html__( 'Remove', 'wishsuite' ),
-        'image'       => esc_html__( 'Image', 'wishsuite' ),
-        'title'       => esc_html__( 'Title', 'wishsuite' ),
-        'price'       => esc_html__( 'Price', 'wishsuite' ),
-        'quantity'    => esc_html__( 'Quantity', 'wishsuite' ),
-        'add_to_cart' => esc_html__( 'Add To Cart', 'wishsuite' ),
-        'description' => esc_html__( 'Description', 'wishsuite' ),
-        'availability'=> esc_html__( 'Availability', 'wishsuite' ),
-        'sku'         => esc_html__( 'Sku', 'wishsuite' ),
-        'weight'      => esc_html__( 'Weight', 'wishsuite' ),
-        'dimensions'  => esc_html__( 'Dimensions', 'wishsuite' ),
+        'remove'      => esc_html__( 'Remove', 'hometrial' ),
+        'image'       => esc_html__( 'Image', 'hometrial' ),
+        'title'       => esc_html__( 'Title', 'hometrial' ),
+        'price'       => esc_html__( 'Price', 'hometrial' ),
+        'quantity'    => esc_html__( 'Quantity', 'hometrial' ),
+        'add_to_cart' => esc_html__( 'Add To Cart', 'hometrial' ),
+        'description' => esc_html__( 'Description', 'hometrial' ),
+        'availability'=> esc_html__( 'Availability', 'hometrial' ),
+        'sku'         => esc_html__( 'Sku', 'hometrial' ),
+        'weight'      => esc_html__( 'Weight', 'hometrial' ),
+        'dimensions'  => esc_html__( 'Dimensions', 'hometrial' ),
     );
-    return apply_filters( 'wishsuite_default_fields', $fields );
+    return apply_filters( 'hometrial_default_fields', $fields );
 }
 
 /**
- * [wishsuite_table_active_heading]
+ * [hometrial_table_active_heading]
  * @return [array]
  */
-function wishsuite_table_active_heading(){
-    $active_heading = !empty( wishsuite_get_option( 'show_fields', 'wishsuite_table_settings_tabs' ) ) ? wishsuite_get_option( 'show_fields', 'wishsuite_table_settings_tabs' ) : array();
+function hometrial_table_active_heading(){
+    $active_heading = !empty( hometrial_get_option( 'show_fields', 'hometrial_table_settings_tabs' ) ) ? hometrial_get_option( 'show_fields', 'hometrial_table_settings_tabs' ) : array();
     return $active_heading;
 }
 
 /**
- * [wishsuite_table_heading]
+ * [hometrial_table_heading]
  * @return [array]
  */
-function wishsuite_table_heading(){
+function hometrial_table_heading(){
     $new_list = array();
 
     $active_default_fields = array(
-        'remove'      => esc_html__( 'Remove', 'wishsuite' ),
-        'image'       => esc_html__( 'Image', 'wishsuite' ),
-        'title'       => esc_html__( 'Title', 'wishsuite' ),
-        'price'       => esc_html__( 'Price', 'wishsuite' ),
-        'quantity'    => esc_html__( 'Quantity', 'wishsuite' ),
-        'add_to_cart' => esc_html__( 'Add To Cart', 'wishsuite' ),
+        'remove'      => esc_html__( 'Remove', 'hometrial' ),
+        'image'       => esc_html__( 'Image', 'hometrial' ),
+        'title'       => esc_html__( 'Title', 'hometrial' ),
+        'price'       => esc_html__( 'Price', 'hometrial' ),
+        'quantity'    => esc_html__( 'Quantity', 'hometrial' ),
+        'add_to_cart' => esc_html__( 'Add To Cart', 'hometrial' ),
     );
 
-    $field_list = count( wishsuite_table_active_heading() ) > 0 ? wishsuite_table_active_heading() : $active_default_fields;
+    $field_list = count( hometrial_table_active_heading() ) > 0 ? hometrial_table_active_heading() : $active_default_fields;
     foreach ( $field_list as $key => $value ) {
-        $new_list[$key] = \WishSuite\Frontend\Manage_Wishlist::instance()->field_name( $key );
+        $new_list[$key] = \HomeTrial\Frontend\Manage_Hometrialist::instance()->field_name( $key );
     }
     return $new_list;
 }
@@ -177,14 +177,14 @@ function wishsuite_table_heading(){
  * Get Post List
  * return array
  */
-function wishsuite_get_available_attributes() {
+function hometrial_get_available_attributes() {
     $attribute_list = array();
 
     if( function_exists( 'wc_get_attribute_taxonomies' ) ) {
         $attribute_list = wc_get_attribute_taxonomies();
     }
 
-    $fields = wishsuite_get_default_fields();
+    $fields = hometrial_get_default_fields();
 
     if ( count( $attribute_list ) > 0 ) {
         foreach ( $attribute_list as $attribute ) {
@@ -197,13 +197,13 @@ function wishsuite_get_available_attributes() {
 
 
 /**
- * [wishsuite_dimensions]
+ * [hometrial_dimensions]
  * @param  [string] $key
  * @param  [string] $tab
  * @return [String | Bool]
  */
-function wishsuite_dimensions( $key, $tab, $css_attr ){
-    $dimensions = !empty( wishsuite_get_option( $key, $tab ) ) ? wishsuite_get_option( $key, $tab ) : array();
+function hometrial_dimensions( $key, $tab, $css_attr ){
+    $dimensions = !empty( hometrial_get_option( $key, $tab ) ) ? hometrial_get_option( $key, $tab ) : array();
     if( !empty( $dimensions['top'] ) || !empty( $dimensions['right'] ) || !empty( $dimensions['bottom'] ) || !empty( $dimensions['left'] ) ){
         $unit = empty( $dimensions['unit'] ) ? 'px' : $dimensions['unit'];
         $css_attr .= ":{$dimensions['top']}{$unit} {$dimensions['right']}{$unit} {$dimensions['bottom']}{$unit} {$dimensions['left']}{$unit}";
@@ -214,11 +214,11 @@ function wishsuite_dimensions( $key, $tab, $css_attr ){
 }
 
 /**
- * [wishsuite_generate_css]
+ * [hometrial_generate_css]
  * @return [String | Bool]
  */
-function wishsuite_generate_css( $key, $tab, $css_attr ){
-    $field_value = !empty( wishsuite_get_option( $key, $tab ) ) ? wishsuite_get_option( $key, $tab ) : '';
+function hometrial_generate_css( $key, $tab, $css_attr ){
+    $field_value = !empty( hometrial_get_option( $key, $tab ) ) ? hometrial_get_option( $key, $tab ) : '';
 
     if( !empty( $field_value ) ){
         $css_attr .= ":{$field_value}";
@@ -231,10 +231,10 @@ function wishsuite_generate_css( $key, $tab, $css_attr ){
 
 
 /**
- * [wishsuite_icon_list]
+ * [hometrial_icon_list]
  * @return [svg]
  */
-function wishsuite_icon_list( $key = '' ){
+function hometrial_icon_list( $key = '' ){
     $icon_list = [
         'default' => '<svg height="15px" width="15px" viewBox="0 0 471.701 471.701">
             <path class="heart" d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"/><g class="loading"><path d="M409.6,0c-9.426,0-17.067,7.641-17.067,17.067v62.344C304.667-5.656,164.478-3.386,79.411,84.479 c-40.09,41.409-62.455,96.818-62.344,154.454c0,9.426,7.641,17.067,17.067,17.067S51.2,248.359,51.2,238.933 c0.021-103.682,84.088-187.717,187.771-187.696c52.657,0.01,102.888,22.135,138.442,60.976l-75.605,25.207 c-8.954,2.979-13.799,12.652-10.82,21.606s12.652,13.799,21.606,10.82l102.4-34.133c6.99-2.328,11.697-8.88,11.674-16.247v-102.4 C426.667,7.641,419.026,0,409.6,0z"/><path d="M443.733,221.867c-9.426,0-17.067,7.641-17.067,17.067c-0.021,103.682-84.088,187.717-187.771,187.696 c-52.657-0.01-102.888-22.135-138.442-60.976l75.605-25.207c8.954-2.979,13.799-12.652,10.82-21.606 c-2.979-8.954-12.652-13.799-21.606-10.82l-102.4,34.133c-6.99,2.328-11.697,8.88-11.674,16.247v102.4 c0,9.426,7.641,17.067,17.067,17.067s17.067-7.641,17.067-17.067v-62.345c87.866,85.067,228.056,82.798,313.122-5.068 c40.09-41.409,62.455-96.818,62.344-154.454C460.8,229.508,453.159,221.867,443.733,221.867z"/></g><g class="check"><path d="M238.933,0C106.974,0,0,106.974,0,238.933s106.974,238.933,238.933,238.933s238.933-106.974,238.933-238.933 C477.726,107.033,370.834,0.141,238.933,0z M238.933,443.733c-113.108,0-204.8-91.692-204.8-204.8s91.692-204.8,204.8-204.8 s204.8,91.692,204.8,204.8C443.611,351.991,351.991,443.611,238.933,443.733z"/><path d="M370.046,141.534c-6.614-6.388-17.099-6.388-23.712,0v0L187.733,300.134l-56.201-56.201 c-6.548-6.78-17.353-6.967-24.132-0.419c-6.78,6.548-6.967,17.353-0.419,24.132c0.137,0.142,0.277,0.282,0.419,0.419 l68.267,68.267c6.664,6.663,17.468,6.663,24.132,0l170.667-170.667C377.014,158.886,376.826,148.082,370.046,141.534z"/></g></svg>',

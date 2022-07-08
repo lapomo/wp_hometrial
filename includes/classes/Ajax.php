@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite;
+namespace HomeTrial;
 /**
  * Ajax handlers class
  */
@@ -28,57 +28,57 @@ class Ajax {
     private function __construct() {
 
         // Add Ajax Callback
-        add_action( 'wp_ajax_wishsuite_add_to_list', [ $this, 'add_to_wishlist' ] );
-        add_action( 'wp_ajax_nopriv_wishsuite_add_to_list', [ $this, 'add_to_wishlist' ] );
+        add_action( 'wp_ajax_hometrial_add_to_list', [ $this, 'add_to_hometrialist' ] );
+        add_action( 'wp_ajax_nopriv_hometrial_add_to_list', [ $this, 'add_to_hometrialist' ] );
 
         // Remove Ajax Callback
-        add_action( 'wp_ajax_wishsuite_remove_from_list', [ $this, 'remove_wishlist' ] );
-        add_action( 'wp_ajax_nopriv_wishsuite_remove_from_list', [ $this, 'remove_wishlist' ] );
+        add_action( 'wp_ajax_hometrial_remove_from_list', [ $this, 'remove_hometrialist' ] );
+        add_action( 'wp_ajax_nopriv_hometrial_remove_from_list', [ $this, 'remove_hometrialist' ] );
 
         // Variation Quick cart Form Ajax Callback
-        add_action( 'wp_ajax_wishsuite_quick_variation_form', [ $this, 'variation_form_html' ] );
-        add_action( 'wp_ajax_nopriv_wishsuite_quick_variation_form', [ $this, 'variation_form_html' ] );
+        add_action( 'wp_ajax_hometrial_quick_variation_form', [ $this, 'variation_form_html' ] );
+        add_action( 'wp_ajax_nopriv_hometrial_quick_variation_form', [ $this, 'variation_form_html' ] );
 
         // For Add to cart
-        add_action( 'wp_ajax_wishsuite_insert_to_cart', [ $this, 'insert_to_cart' ] );
-        add_action( 'wp_ajax_nopriv_wishsuite_insert_to_cart', [ $this, 'insert_to_cart' ] );
+        add_action( 'wp_ajax_hometrial_insert_to_cart', [ $this, 'insert_to_cart' ] );
+        add_action( 'wp_ajax_nopriv_hometrial_insert_to_cart', [ $this, 'insert_to_cart' ] );
 
     }
 
     /**
-     * [add_to_wishlist] Product add ajax callback
+     * [add_to_hometrialist] Product add ajax callback
      */
-    public function add_to_wishlist(){
+    public function add_to_hometrialist(){
         $id = sanitize_text_field( $_GET['id'] );
-        $inserted = \WishSuite\Frontend\Manage_Wishlist::instance()->add_product( $id );
+        $inserted = \HomeTrial\Frontend\Manage_Hometrialist::instance()->add_product( $id );
         if ( ! $inserted ) {
             wp_send_json_success([
-                'message' => __( 'Product do not add!', 'wishsuite' )
+                'message' => __( 'Product do not add!', 'hometrial' )
             ]);
         }else{
             wp_send_json_success([
-                'item_count' => count( \WishSuite\Frontend\Manage_Wishlist::instance()->get_products_data() ),
-                'message' => __( 'Product successfully added!', 'wishsuite' )
+                'item_count' => count( \HomeTrial\Frontend\Manage_Hometrialist::instance()->get_products_data() ),
+                'message' => __( 'Product successfully added!', 'hometrial' )
             ]);
         }
 
     }
 
     /**
-     * [remove_wishlist] Product delete ajax callback
+     * [remove_hometrialist] Product delete ajax callback
      * @return [void]
      */
-    public function remove_wishlist(){
+    public function remove_hometrialist(){
         $id = sanitize_text_field( $_GET['id'] );
-        $deleted = \WishSuite\Frontend\Manage_Wishlist::instance()->remove_product( $id );
+        $deleted = \HomeTrial\Frontend\Manage_Hometrialist::instance()->remove_product( $id );
         if ( ! $deleted ) {
             wp_send_json_success([
-                'message' => __( 'Product do not delete!', 'wishsuite' )
+                'message' => __( 'Product do not delete!', 'hometrial' )
             ]);
         }else{
             wp_send_json_success([
-                'item_count' => count( \WishSuite\Frontend\Manage_Wishlist::instance()->get_products_data() ),
-                'message' => __( 'Product successfully deleted!', 'wishsuite' )
+                'item_count' => count( \HomeTrial\Frontend\Manage_Hometrialist::instance()->get_products_data() ),
+                'message' => __( 'Product successfully deleted!', 'hometrial' )
             ]);
         }
 

@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WishSuite\\' => array($baseDir . '/includes/classes'),
+    'HomeTrial\\' => array($baseDir . '/includes/classes'),
 );

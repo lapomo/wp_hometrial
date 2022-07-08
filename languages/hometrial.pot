@@ -1,7 +1,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WishSuite - Wishlist for WooCommerce\n"
+"Project-Id-Version: HomeTrial - Hometrialist for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-11 03:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -14,19 +14,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.2; wp-6.0\n"
-"X-Domain: wishsuite"
+"X-Domain: hometrial"
 
 #: includes/classes/Admin/Notices.php:51
 #, php-format
 msgid ""
-"%1$sWishSuite%2$s requires %1$s\"WooCommerce\"%2$s plugin to be active. "
+"%1$sHomeTrial%2$s requires %1$s\"WooCommerce\"%2$s plugin to be active. "
 "Please activate WooCommerce to continue."
 msgstr ""
 
 #: includes/classes/Admin/Notices.php:58
 #, php-format
 msgid ""
-"%1$sWishSuite%2$s requires %1$s\"WooCommerce\"%2$s plugin to be installed "
+"%1$sHomeTrial%2$s requires %1$s\"WooCommerce\"%2$s plugin to be installed "
 "and activated. Please install WooCommerce to continue."
 msgstr ""
 
@@ -35,7 +35,7 @@ msgid "Activate WooCommerce"
 msgstr ""
 
 #: includes/helper-functions.php:134 includes/helper-functions.php:166
-#: includes/classes/Frontend/Manage_Wishlist.php:403
+#: includes/classes/Frontend/Manage_Hometrialist.php:403
 #: includes/classes/Admin/Admin_Fields.php:265
 msgid "Add To Cart"
 msgstr ""
@@ -66,7 +66,7 @@ msgid "After Summary"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:226
-msgid "Already exists in the wishlist text"
+msgid "Already exists in the hometrialist text"
 msgstr ""
 
 #: includes/helper-functions.php:136
@@ -122,16 +122,16 @@ msgid "Button Text"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:366
-msgid "Choose a style for the wishlist button from here."
+msgid "Choose a style for the hometrialist button from here."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:425
-msgid "Choose a style for the wishlist table here."
+msgid "Choose a style for the hometrialist table here."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:379
 #: includes/classes/Admin/Admin_Fields.php:402
-msgid "Choose an icon for the wishlist button from here."
+msgid "Choose an icon for the hometrialist button from here."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:256
@@ -191,7 +191,7 @@ msgstr ""
 msgid "e.g: woocommerce_after_single_product_summary"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:30
+#: includes/templates/hometrial-social-share.php:30
 #: includes/classes/Admin/Admin_Fields.php:342
 msgid "Email"
 msgstr ""
@@ -227,14 +227,14 @@ msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:81
 msgid ""
-"Enable this option to allow only the logged-in users to use the Wishlist "
+"Enable this option to allow only the logged-in users to use the Hometrialist "
 "feature."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:87
 msgid ""
 "Enter a text for the tooltip that will be shown when someone hover over the "
-"Wishlist icon."
+"Hometrialist icon."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:218
@@ -250,15 +250,15 @@ msgid "Enter your social share button title."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:209
-msgid "Enter your wishlist button text."
+msgid "Enter your hometrialist button text."
 msgstr ""
 
 #: includes/classes/Admin/Dashboard.php:204
 msgid "EverCompare"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:14
-#: includes/templates/wishsuite-social-share.php:58
+#: includes/templates/hometrial-social-share.php:14
+#: includes/templates/hometrial-social-share.php:58
 #: includes/classes/Admin/Admin_Fields.php:338
 #: includes/classes/Admin/Admin_Fields.php:350
 msgid "Facebook"
@@ -371,7 +371,7 @@ msgid "https://hasthemes.com/plugins/"
 msgstr ""
 
 #: includes/helper-functions.php:130 includes/helper-functions.php:162
-#: includes/classes/Frontend/Manage_Wishlist.php:399
+#: includes/classes/Frontend/Manage_Hometrialist.php:399
 #: includes/classes/Admin/Admin_Fields.php:261
 msgid "Image"
 msgstr ""
@@ -413,11 +413,11 @@ msgid "Left"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:78
-msgid "Limit Wishlist Use"
+msgid "Limit Hometrialist Use"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:26
-#: includes/templates/wishsuite-social-share.php:61
+#: includes/templates/hometrial-social-share.php:26
+#: includes/templates/hometrial-social-share.php:61
 #: includes/classes/Admin/Admin_Fields.php:341
 #: includes/classes/Admin/Admin_Fields.php:353
 msgid "Linkedin"
@@ -447,7 +447,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:43
+#: includes/templates/hometrial-social-share.php:43
 #: includes/classes/Admin/Admin_Fields.php:345
 msgid "Odnoklassniki"
 msgstr ""
@@ -462,11 +462,11 @@ msgstr ""
 
 #: includes/classes/Installer.php:75
 msgctxt "page_slug"
-msgid "wishsuite"
+msgid "hometrial"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:22
-#: includes/templates/wishsuite-social-share.php:60
+#: includes/templates/hometrial-social-share.php:22
+#: includes/templates/hometrial-social-share.php:60
 #: includes/classes/Admin/Admin_Fields.php:340
 #: includes/classes/Admin/Admin_Fields.php:352
 msgid "Pinterest"
@@ -477,7 +477,7 @@ msgid "Please login"
 msgstr ""
 
 #: includes/helper-functions.php:132 includes/helper-functions.php:164
-#: includes/classes/Frontend/Manage_Wishlist.php:401
+#: includes/classes/Frontend/Manage_Hometrialist.php:401
 #: includes/classes/Admin/Admin_Fields.php:263
 msgid "Price"
 msgstr ""
@@ -517,7 +517,7 @@ msgid "Product successfully deleted!"
 msgstr ""
 
 #: includes/helper-functions.php:133 includes/helper-functions.php:165
-#: includes/classes/Frontend/Manage_Wishlist.php:402
+#: includes/classes/Frontend/Manage_Hometrialist.php:402
 #: includes/classes/Admin/Admin_Fields.php:264
 msgid "Quantity"
 msgstr ""
@@ -530,13 +530,13 @@ msgstr ""
 msgid "Recommended"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:35
+#: includes/templates/hometrial-social-share.php:35
 #: includes/classes/Admin/Admin_Fields.php:343
 msgid "Reddit"
 msgstr ""
 
 #: includes/helper-functions.php:129 includes/helper-functions.php:161
-#: includes/classes/Frontend/Manage_Wishlist.php:398
+#: includes/classes/Frontend/Manage_Hometrialist.php:398
 #: includes/classes/Admin/Admin_Fields.php:260
 #: includes/classes/Admin/Admin_Fields.php:395
 #: includes/classes/Admin/Admin_Fields.php:418
@@ -544,7 +544,7 @@ msgid "Remove"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:248
-msgid "Remove from the \"Wishlist\" after adding to the cart."
+msgid "Remove from the \"Hometrialist\" after adding to the cart."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:480
@@ -603,14 +603,14 @@ msgstr ""
 msgid ""
 "Some themes remove the above positions. In that case, custom position is "
 "useful. Here you can place the custom/default hook name & priority to inject "
-"& adjust the wishlist button for the product loop."
+"& adjust the hometrialist button for the product loop."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:184
 msgid ""
 "Some themes remove the above positions. In that case, custom position is "
 "useful. Here you can place the custom/default hook name & priority to inject "
-"& adjust the wishlist button for the single product page."
+"& adjust the hometrialist button for the single product page."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:63
@@ -637,8 +637,8 @@ msgstr ""
 msgid "Table style"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:39
-#: includes/templates/wishsuite-social-share.php:62
+#: includes/templates/hometrial-social-share.php:39
+#: includes/templates/hometrial-social-share.php:62
 #: includes/classes/Admin/Admin_Fields.php:344
 #: includes/classes/Admin/Admin_Fields.php:354
 msgid "Telegram"
@@ -646,7 +646,7 @@ msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:280
 msgid ""
-"Text will be displayed if the user doesn't add any product to  the wishlist."
+"Text will be displayed if the user doesn't add any product to  the hometrialist."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:371
@@ -654,7 +654,7 @@ msgid "Theme style"
 msgstr ""
 
 #: includes/helper-functions.php:131 includes/helper-functions.php:163
-#: includes/classes/Frontend/Manage_Wishlist.php:400
+#: includes/classes/Frontend/Manage_Hometrialist.php:400
 #: includes/classes/Admin/Admin_Fields.php:262
 msgid "Title"
 msgstr ""
@@ -669,8 +669,8 @@ msgstr ""
 msgid "Top On Image"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:18
-#: includes/templates/wishsuite-social-share.php:59
+#: includes/templates/hometrial-social-share.php:18
+#: includes/templates/hometrial-social-share.php:59
 #: includes/classes/Admin/Admin_Fields.php:339
 #: includes/classes/Admin/Admin_Fields.php:351
 msgid "Twitter"
@@ -692,7 +692,7 @@ msgstr ""
 msgid "Use Shortcode"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:51
+#: includes/templates/hometrial-social-share.php:51
 #: includes/classes/Admin/Admin_Fields.php:347
 msgid "VK"
 msgstr ""
@@ -705,12 +705,12 @@ msgstr ""
 msgid "Weight"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:47
+#: includes/templates/hometrial-social-share.php:47
 #: includes/classes/Admin/Admin_Fields.php:346
 msgid "WhatsApp"
 msgstr ""
 
-#: includes/templates/wishsuite-social-share.php:31
+#: includes/templates/hometrial-social-share.php:31
 msgid "Whislist&body=My whislist:"
 msgstr ""
 
@@ -741,33 +741,33 @@ msgstr ""
 #: includes/classes/Admin/Dashboard.php:93
 #: includes/classes/Admin/Admin_Fields.php:211
 #: includes/classes/Admin/Admin_Fields.php:212
-msgid "Wishlist"
+msgid "Hometrialist"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:86
-msgid "Wishlist Icon Tooltip Text"
+msgid "Hometrialist Icon Tooltip Text"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:239
-msgid "Wishlist page"
+msgid "Hometrialist page"
 msgstr ""
 
 #: includes/classes/Installer.php:77 includes/classes/Admin/Dashboard.php:111
 #: includes/classes/Admin/Dashboard.php:112
 #: includes/classes/Admin/Dashboard.php:391
-msgid "WishSuite"
+msgid "HomeTrial"
 msgstr ""
 
 #. Name of the plugin
-msgid "WishSuite - Wishlist for WooCommerce"
+msgid "HomeTrial - Hometrialist for WooCommerce"
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:601
-msgid "WishSuite Settings"
+msgid "HomeTrial Settings"
 msgstr ""
 
 #. Description of the plugin
-msgid "WooCommerce Product wishlist plugin"
+msgid "WooCommerce Product hometrialist plugin"
 msgstr ""
 
 #: includes/classes/Admin/Dashboard.php:194
@@ -794,11 +794,11 @@ msgid "You can change table heading text from here."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:114
-msgid "You can manage wishlist button position in product list page."
+msgid "You can manage hometrialist button position in product list page."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:161
-msgid "You can manage wishlist button position in single product page."
+msgid "You can manage hometrialist button position in single product page."
 msgstr ""
 
 #: includes/classes/Admin/Admin_Fields.php:335

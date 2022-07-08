@@ -1,9 +1,9 @@
 <?php
-namespace WishSuite\Frontend;
+namespace HomeTrial\Frontend;
 /**
- * Manage Wishlist class
+ * Manage Hometrialist class
  */
-class Manage_Wishlist {
+class Manage_Hometrialist {
 
     /**
      * [$_instance]
@@ -13,7 +13,7 @@ class Manage_Wishlist {
 
     /**
      * [instance] Initializes a singleton instance
-     * @return [Manage_Wishlist]
+     * @return [Manage_Hometrialist]
      */
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -28,8 +28,8 @@ class Manage_Wishlist {
     private function __construct() {
         add_action( 'init', [ $this, 'button_manager' ] );
 
-        // Remove wishlist item after add to cart.
-        add_action( 'woocommerce_add_to_cart', [ $this, 'remove_wishlist_after_add_to_cart' ], 10, 6 );
+        // Remove hometrialist item after add to cart.
+        add_action( 'woocommerce_add_to_cart', [ $this, 'remove_hometrialist_after_add_to_cart' ], 10, 6 );
 
     }
 
@@ -49,18 +49,18 @@ class Manage_Wishlist {
                 'user_id' => $user_id
             ];
 
-            $insert_id = \WishSuite\Manage_Data::instance()->create( $args );
+            $insert_id = \HomeTrial\Manage_Data::instance()->create( $args );
             $add_status = $insert_id;
 
         }else{
 
             $cookie_name = $this->get_cookie_name();
 
-            if ( $this->is_product_in_wishlist( $id ) ) {
+            if ( $this->is_product_in_hometrialist( $id ) ) {
                 $add_status = false;
             }
 
-            $products = $this->get_wishlist_products();
+            $products = $this->get_hometrialist_products();
             $products[] = $id;
 
             setcookie( $cookie_name, json_encode( $products ), 0, COOKIEPATH, COOKIE_DOMAIN, false, false );
@@ -83,13 +83,13 @@ class Manage_Wishlist {
         $delete_status = false;
 
         if( $user_id ){
-            $deleted = \WishSuite\Manage_Data::instance()->delete( $user_id, $id );
+            $deleted = \HomeTrial\Manage_Data::instance()->delete( $user_id, $id );
             $delete_status = $deleted;
         }else{
 
             $cookie_name = $this->get_cookie_name();
 
-            $products = $this->get_wishlist_products();
+            $products = $this->get_hometrialist_products();
 
             if( in_array( $id, $products ) ){
 
@@ -118,7 +118,7 @@ class Manage_Wishlist {
     }
 
     /**
-     * [remove_wishlist_after_add_to_cart]
+     * [remove_hometrialist_after_add_to_cart]
      * @param  [type] $cart_item_key
      * @param  [type] $product_id
      * @param  [type] $quantity
@@ -127,8 +127,8 @@ class Manage_Wishlist {
      * @param  [type] $cart_item_data
      * @return [type]
      */
-    public function remove_wishlist_after_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ){
-        if( isset( $product_id ) && 'on' === wishsuite_get_option( 'after_added_to_cart', 'wishsuite_table_settings_tabs', 'on' ) ){
+    public function remove_hometrialist_after_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ){
+        if( isset( $product_id ) && 'on' === hometrial_get_option( 'after_added_to_cart', 'hometrial_table_settings_tabs', 'on' ) ){
             $this->remove_product( $product_id );
         }
     }
@@ -139,11 +139,11 @@ class Manage_Wishlist {
      */
     public function button_manager(){
 
-        $shop_page_btn_position     = wishsuite_get_option( 'shop_btn_position', 'wishsuite_settings_tabs', 'after_cart_btn' );
-        $product_page_btn_position  = wishsuite_get_option( 'product_btn_position', 'wishsuite_settings_tabs', 'after_cart_btn' );
+        $shop_page_btn_position     = hometrial_get_option( 'shop_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
+        $product_page_btn_position  = hometrial_get_option( 'product_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
 
-        $enable_btn         = wishsuite_get_option( 'btn_show_shoppage', 'wishsuite_settings_tabs', 'off' );
-        $product_enable_btn = wishsuite_get_option( 'btn_show_productpage', 'wishsuite_settings_tabs', 'on' );
+        $enable_btn         = hometrial_get_option( 'btn_show_shoppage', 'hometrial_settings_tabs', 'off' );
+        $product_enable_btn = hometrial_get_option( 'btn_show_productpage', 'hometrial_settings_tabs', 'on' );
         
         // Shop Button Position
         if( $shop_page_btn_position != 'use_shortcode' && $enable_btn == 'on' ){
@@ -157,8 +157,8 @@ class Manage_Wishlist {
                     break;
 
                 case 'custom_position':
-                    $hook_name = wishsuite_get_option( 'shop_custom_hook_name', 'wishsuite_settings_tabs', '' );
-                    $priority = wishsuite_get_option( 'shop_custom_hook_priority', 'wishsuite_settings_tabs', 10 );
+                    $hook_name = hometrial_get_option( 'shop_custom_hook_name', 'hometrial_settings_tabs', '' );
+                    $priority = hometrial_get_option( 'shop_custom_hook_priority', 'hometrial_settings_tabs', 10 );
                     if( !empty( $hook_name ) ){
                         add_action( $hook_name, [ $this, 'button_print' ], $priority );
                     }
@@ -186,8 +186,8 @@ class Manage_Wishlist {
                     break;
 
                 case 'custom_position':
-                    $hook_name = wishsuite_get_option( 'product_custom_hook_name', 'wishsuite_settings_tabs', '' );
-                    $priority = wishsuite_get_option( 'product_custom_hook_priority', 'wishsuite_settings_tabs', 10 );
+                    $hook_name = hometrial_get_option( 'product_custom_hook_name', 'hometrial_settings_tabs', '' );
+                    $priority = hometrial_get_option( 'product_custom_hook_priority', 'hometrial_settings_tabs', 10 );
                     if( !empty( $hook_name ) ){
                         add_action( $hook_name, [ $this, 'button_print' ], $priority );
                     }
@@ -206,35 +206,35 @@ class Manage_Wishlist {
      * @return [void]
      */
     public function button_print(){
-        echo do_shortcode( '[wishsuite_button]' );
+        echo do_shortcode( '[hometrial_button]' );
     }
 
     /**
-     * [button_html] Wishlist Button HTML
+     * [button_html] Hometrialist Button HTML
      * @param  [type] $atts template attr
      * @return [HTML]
      */
     public function button_html( $atts ) {
-        $button_attr = apply_filters( 'wishsuite_button_arg', $atts );
-        return wishsuite_get_template( 'wishsuite-button-'.$atts['template_name'].'.php', $button_attr, false );
+        $button_attr = apply_filters( 'hometrial_button_arg', $atts );
+        return hometrial_get_template( 'hometrial-button-'.$atts['template_name'].'.php', $button_attr, false );
     }
 
     /**
-     * [table_html] Wishlist table HTML
+     * [table_html] Hometrialist table HTML
      * @return [HTML]
      */
     public function table_html( $atts ) {
-        $table_attr = apply_filters( 'wishsuite_table_arg', $atts );
-        return wishsuite_get_template( 'wishsuite-table.php', $table_attr, false );
+        $table_attr = apply_filters( 'hometrial_table_arg', $atts );
+        return hometrial_get_template( 'hometrial-table.php', $table_attr, false );
     }
 
     /**
-     * [counter_html] Wishlist counter HTML
+     * [counter_html] Hometrialist counter HTML
      * @return [HTML]
      */
     public function count_html( $atts ) {
-        $count_attr = apply_filters( 'wishsuite_count_arg', $atts );
-        return wishsuite_get_template( 'wishsuite-count.php', $count_attr, false );
+        $count_attr = apply_filters( 'hometrial_count_arg', $atts );
+        return hometrial_get_template( 'hometrial-count.php', $count_attr, false );
     }
 
     /**
@@ -242,7 +242,7 @@ class Manage_Wishlist {
      * @return [string]
      */
     public function get_cookie_name() {
-        $name = 'wishsuite_item_list';
+        $name = 'hometrial_item_list';
         if ( is_multisite() ){
             $name .= '_' . get_current_blog_id();
         }
@@ -250,19 +250,19 @@ class Manage_Wishlist {
     }
     
     /**
-     * [get_wishlist_products]
+     * [get_hometrialist_products]
      * @param  integer $per_page
      * @param  integer $offset
      * @return [array]
      */
-    public function get_wishlist_products( $per_page = 20, $offset = 0 ){
+    public function get_hometrialist_products( $per_page = 20, $offset = 0 ){
 
         if( is_user_logged_in() ){
             $args = [
                 'number'  => $per_page,
                 'offset'  => $offset,
             ];
-            $items = \WishSuite\Manage_Data::instance()->read( $args );
+            $items = \HomeTrial\Manage_Data::instance()->read( $args );
 
             $ids = array();
             foreach ( $items as $itemkey => $item ) {
@@ -282,13 +282,13 @@ class Manage_Wishlist {
     }
 
     /**
-     * [is_product_in_wishlist] Check product in list
+     * [is_product_in_hometrialist] Check product in list
      * @param  [int] $id [description]
      * @return boolean
      */
-    public function is_product_in_wishlist( $id ) {
+    public function is_product_in_hometrialist( $id ) {
         $id = (string) $id;
-        $list = $this->get_wishlist_products();
+        $list = $this->get_hometrialist_products();
         if ( is_array( $list ) ) {
             return in_array( $id, $list, true );
         }else{
@@ -297,16 +297,16 @@ class Manage_Wishlist {
     }
 
     /**
-     * [get_products_data] generate wishlist products data
+     * [get_products_data] generate hometrialist products data
      * @return [array] product list
      */
     public function get_products_data() {
 
-        $ids = $this->get_wishlist_products();
+        $ids = $this->get_hometrialist_products();
 
-        $shareablebtn = wishsuite_get_option( 'enable_social_share','wishsuite_table_settings_tabs','on' );
-        if ( ( $shareablebtn === 'on' ) && isset( $_GET['wishsuitepids'] ) ) {
-            $query_perametter_ids = sanitize_text_field( $_GET['wishsuitepids'] );
+        $shareablebtn = hometrial_get_option( 'enable_social_share','hometrial_table_settings_tabs','on' );
+        if ( ( $shareablebtn === 'on' ) && isset( $_GET['hometrialpids'] ) ) {
+            $query_perametter_ids = sanitize_text_field( $_GET['hometrialpids'] );
             if( !empty( $query_perametter_ids ) ){
                 $ids = explode( ',', $query_perametter_ids );
             }
@@ -337,7 +337,7 @@ class Manage_Wishlist {
             $rating_count   = $product->get_rating_count();
             $average        = $product->get_average_rating();
 
-            $get_row = \WishSuite\Manage_Data::instance()->read_single_item( get_current_user_id(), $product->get_id() );
+            $get_row = \HomeTrial\Manage_Data::instance()->read_single_item( get_current_user_id(), $product->get_id() );
             if( is_object( $get_row ) && $get_row->quantity ){
                 $min_value = $get_row->quantity;
             }else{
@@ -352,7 +352,7 @@ class Manage_Wishlist {
             $products_data[ $product->get_id() ] = array(
                 'id'            => $product->get_id(),
                 'remove'        => $product->get_id(),
-                'image'         => $product->get_image() ? $product->get_image('wishsuite-image') : $data_none,
+                'image'         => $product->get_image() ? $product->get_image('hometrial-image') : $data_none,
                 'title'         => $product->get_title() ? $product->get_title() : $data_none,
                 'image_id'      => $product->get_image_id(),
                 'permalink'     => $product->get_permalink(),
@@ -395,15 +395,15 @@ class Manage_Wishlist {
     public function get_all_fields() {
         
         $default_show = array(
-            'remove'        => esc_html__( 'Remove', 'wishsuite' ),
-            'image'         => esc_html__( 'Image', 'wishsuite' ),
-            'title'         => esc_html__( 'Title', 'wishsuite' ),
-            'price'         => esc_html__( 'Price', 'wishsuite' ),
-            'quantity'      => esc_html__( 'Quantity', 'wishsuite' ),
-            'add_to_cart'   => esc_html__( 'Add To Cart', 'wishsuite' ),
+            'remove'        => esc_html__( 'Remove', 'hometrial' ),
+            'image'         => esc_html__( 'Image', 'hometrial' ),
+            'title'         => esc_html__( 'Title', 'hometrial' ),
+            'price'         => esc_html__( 'Price', 'hometrial' ),
+            'quantity'      => esc_html__( 'Quantity', 'hometrial' ),
+            'add_to_cart'   => esc_html__( 'Add To Cart', 'hometrial' ),
         );
 
-        $fields_settings = wishsuite_get_option( 'show_fields', 'wishsuite_table_settings_tabs' );
+        $fields_settings = hometrial_get_option( 'show_fields', 'hometrial_table_settings_tabs' );
 
         if ( isset( $fields_settings ) && ( is_array( $fields_settings ) ) && count( $fields_settings ) > 1 ) {
             $fields = $fields_settings;
@@ -446,7 +446,7 @@ class Manage_Wishlist {
         switch ( $type ) {
             case 'remove':
                 ?>
-                    <a href="#" class="wishsuite-remove" data-product_id="<?php echo esc_attr( $product['id'] ); ?>">&nbsp;</a>
+                    <a href="#" class="hometrial-remove" data-product_id="<?php echo esc_attr( $product['id'] ); ?>">&nbsp;</a>
                 <?php
                 break;
 
@@ -469,11 +469,11 @@ class Manage_Wishlist {
                 break;
 
             case 'ratting':
-                echo '<span class="wishsuite-product-ratting">'.wp_kses_post( $product[ $field_id ] ).'</span>';
+                echo '<span class="hometrial-product-ratting">'.wp_kses_post( $product[ $field_id ] ).'</span>';
                 break;
 
             case 'add_to_cart':
-                echo apply_filters( 'wishsuite_add_to_cart_btn', $product[ $field_id ] );
+                echo apply_filters( 'hometrial_add_to_cart_btn', $product[ $field_id ] );
                 break;
 
             case 'attribute':
@@ -514,7 +514,7 @@ class Manage_Wishlist {
             return $field;
         }
 
-        $default = wishsuite_get_default_fields();
+        $default = hometrial_get_default_fields();
 
         $str = substr( $field, 0, 3 );
         if( 'pa_' === $str ){
@@ -533,7 +533,7 @@ class Manage_Wishlist {
     public function add_to_cart_html( $product, $quentity ) {
         if ( ! $product ) return;
 
-        $btn_class = 'wishsuite-addtocart button product_type_' . $product->get_type();
+        $btn_class = 'hometrial-addtocart button product_type_' . $product->get_type();
 
         $btn_class .= $product->is_purchasable() && $product->is_in_stock() ? ' add_to_cart_button' : '';
 
@@ -545,14 +545,14 @@ class Manage_Wishlist {
 
         if( 'variable' === $product->get_type() ):
         ?>
-            <div class="wishsuite-quick-cart-area">
-                <div class="wishsuite-quick-cart-close">
+            <div class="hometrial-quick-cart-area">
+                <div class="hometrial-quick-cart-close">
                     <span>&#10005;</span>
                 </div>
-                <div class="wishsuite-quick-cart-form"></div>
+                <div class="hometrial-quick-cart-form"></div>
             </div>
         <?php endif; ?>
-            <a href="<?php echo $product->add_to_cart_url(); ?>" data-quantity="<?php echo esc_attr( $quentity ); ?>" class="<?php echo $btn_class; ?>" data-product_id="<?php echo $product->get_id(); ?>"><?php echo __( $cart_btn, 'wishsuite' );?></a>
+            <a href="<?php echo $product->add_to_cart_url(); ?>" data-quantity="<?php echo esc_attr( $quentity ); ?>" class="<?php echo $btn_class; ?>" data-product_id="<?php echo $product->get_id(); ?>"><?php echo __( $cart_btn, 'hometrial' );?></a>
         <?php
         return ob_get_clean();
 
@@ -592,17 +592,17 @@ class Manage_Wishlist {
      */
     public function social_share(){
 
-        if( wishsuite_get_option( 'enable_social_share','wishsuite_table_settings_tabs','on' ) !== 'on' ){
+        if( hometrial_get_option( 'enable_social_share','hometrial_table_settings_tabs','on' ) !== 'on' ){
             return;
         }
 
-        $ids = $this->get_wishlist_products();
+        $ids = $this->get_hometrialist_products();
 
         $atts = [
             'products_ids' => $ids,
         ];
-        $social_share_attr = apply_filters( 'wishsuite_social_share_arg', $atts );
-        wishsuite_get_template( 'wishsuite-social-share.php', $social_share_attr, true );
+        $social_share_attr = apply_filters( 'hometrial_social_share_arg', $atts );
+        hometrial_get_template( 'hometrial-social-share.php', $social_share_attr, true );
         
     }
 

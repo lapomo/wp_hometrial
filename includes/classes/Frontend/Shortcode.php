@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite\Frontend;
+namespace HomeTrial\Frontend;
 /**
  * Shortcode handler class
  */
@@ -26,9 +26,9 @@ class Shortcode {
      * Initializes the class
      */
     function __construct() {
-        add_shortcode( 'wishsuite_button', [ $this, 'button_shortcode' ] );
-        add_shortcode( 'wishsuite_table', [ $this, 'table_shortcode' ] );
-        add_shortcode( 'wishsuite_counter', [ $this, 'counter_shortcode' ] );
+        add_shortcode( 'hometrial_button', [ $this, 'button_shortcode' ] );
+        add_shortcode( 'hometrial_table', [ $this, 'table_shortcode' ] );
+        add_shortcode( 'hometrial_counter', [ $this, 'counter_shortcode' ] );
     }
 
     /**
@@ -38,8 +38,8 @@ class Shortcode {
      * @return [HTML] 
      */
     public function button_shortcode( $atts, $content = '' ){
-        wp_enqueue_style( 'wishsuite-frontend' );
-        wp_enqueue_script( 'wishsuite-frontend' );
+        wp_enqueue_style( 'hometrial-frontend' );
+        wp_enqueue_script( 'hometrial-frontend' );
 
         global $product;
         $product_id = '';
@@ -48,7 +48,7 @@ class Shortcode {
         }
 
         $has_product = false;
-        if ( Manage_Wishlist::instance()->is_product_in_wishlist( $product_id ) ) {
+        if ( Manage_Hometrialist::instance()->is_product_in_hometrialist( $product_id ) ) {
             $has_product = true;
         }
 
@@ -56,35 +56,35 @@ class Shortcode {
         $myaccount_url =  get_permalink( get_option('woocommerce_myaccount_page_id') );
 
         // Fetch option data
-        $button_text        = wishsuite_get_option( 'button_text','wishsuite_settings_tabs', 'Wishlist' );
-        $button_added_text  = wishsuite_get_option( 'added_button_text','wishsuite_settings_tabs', 'Product Added' );
-        $button_exist_text  = wishsuite_get_option( 'exist_button_text','wishsuite_settings_tabs', 'Product already added' );
-        $shop_page_btn_position     = wishsuite_get_option( 'shop_btn_position', 'wishsuite_settings_tabs', 'after_cart_btn' );
-        $product_page_btn_position  = wishsuite_get_option( 'product_btn_position', 'wishsuite_settings_tabs', 'after_cart_btn' );
-        $button_style               = wishsuite_get_option( 'button_style', 'wishsuite_style_settings_tabs', 'default' );
-        $enable_login_limit = wishsuite_get_option( 'enable_login_limit', 'wishsuite_general_tabs', 'off' );
+        $button_text        = hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Hometrialist' );
+        $button_added_text  = hometrial_get_option( 'added_button_text','hometrial_settings_tabs', 'Product Added' );
+        $button_exist_text  = hometrial_get_option( 'exist_button_text','hometrial_settings_tabs', 'Product already added' );
+        $shop_page_btn_position     = hometrial_get_option( 'shop_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
+        $product_page_btn_position  = hometrial_get_option( 'product_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
+        $button_style               = hometrial_get_option( 'button_style', 'hometrial_style_settings_tabs', 'default' );
+        $enable_login_limit = hometrial_get_option( 'enable_login_limit', 'hometrial_general_tabs', 'off' );
 
         if ( !is_user_logged_in() && $enable_login_limit == 'on' ) {
-            $button_text   = wishsuite_get_option( 'logout_button','wishsuite_general_tabs', 'Please login' );
+            $button_text   = hometrial_get_option( 'logout_button','hometrial_general_tabs', 'Please login' );
             $page_url      = $myaccount_url;
             $has_product   = false;
         }else{
-            $button_text = wishsuite_get_option( 'button_text','wishsuite_settings_tabs', 'Wishlist' );
-            $page_url = wishsuite_get_page_url();
+            $button_text = hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Hometrialist' );
+            $page_url = hometrial_get_page_url();
         }
 
         $button_class = array(
-            'wishsuite-btn',
-            'wishsuite-button',
-            'wishsuite-shop-'.$shop_page_btn_position,
-            'wishsuite-product-'.$product_page_btn_position,
+            'hometrial-btn',
+            'hometrial-button',
+            'hometrial-shop-'.$shop_page_btn_position,
+            'hometrial-product-'.$product_page_btn_position,
         );
 
         if( $button_style === 'themestyle' ){
             $button_class[] = 'button';
         }
 
-        if ( $has_product === true && ( $key = array_search( 'wishsuite-btn', $button_class ) ) !== false ) {
+        if ( $has_product === true && ( $key = array_search( 'hometrial-btn', $button_class ) ) !== false ) {
             unset( $button_class[$key] );
         }
 
@@ -93,15 +93,15 @@ class Shortcode {
         $added_button_icon  = $this->icon_generate('added');
         
         if( !empty( $button_text ) ){
-            $button_text = '<span class="wishsuite-btn-text">'.$button_text.'</span>';
+            $button_text = '<span class="hometrial-btn-text">'.$button_text.'</span>';
         }
         
         if( !empty( $button_exist_text ) ){
-            $button_exist_text = '<span class="wishsuite-btn-text">'.$button_exist_text.'</span>';
+            $button_exist_text = '<span class="hometrial-btn-text">'.$button_exist_text.'</span>';
         }
 
         if( !empty( $button_added_text ) ){
-            $button_added_text = '<span class="wishsuite-btn-text">'.$button_added_text.'</span>';
+            $button_added_text = '<span class="hometrial-btn-text">'.$button_added_text.'</span>';
         }
 
         // Shortcode atts
@@ -116,7 +116,7 @@ class Shortcode {
             'template_name'     => ( $has_product === true ) ? 'exist' : 'add',
         );
         $atts = shortcode_atts( $default_atts, $atts, $content );
-        return Manage_Wishlist::instance()->button_html( $atts );
+        return Manage_Hometrialist::instance()->button_html( $atts );
 
     }
 
@@ -127,21 +127,21 @@ class Shortcode {
      * @return [HTML] 
      */
     public function table_shortcode( $atts, $content = '' ){
-        wp_enqueue_style( 'wishsuite-frontend' );
-        wp_enqueue_script( 'wishsuite-frontend' );
+        wp_enqueue_style( 'hometrial-frontend' );
+        wp_enqueue_script( 'hometrial-frontend' );
 
         /* Fetch From option data */
-        $empty_text = wishsuite_get_option( 'empty_table_text', 'wishsuite_table_settings_tabs' );
+        $empty_text = hometrial_get_option( 'empty_table_text', 'hometrial_table_settings_tabs' );
 
         /* Product and Field */
-        $products   = Manage_Wishlist::instance()->get_products_data();
-        $fields     = Manage_Wishlist::instance()->get_all_fields();
+        $products   = Manage_Hometrialist::instance()->get_products_data();
+        $fields     = Manage_Hometrialist::instance()->get_all_fields();
 
-        $custom_heading = !empty( wishsuite_get_option( 'table_heading', 'wishsuite_table_settings_tabs' ) ) ? wishsuite_get_option( 'table_heading', 'wishsuite_table_settings_tabs' ) : array();
-        $enable_login_limit = wishsuite_get_option( 'enable_login_limit', 'wishsuite_general_tabs', 'off' );
+        $custom_heading = !empty( hometrial_get_option( 'table_heading', 'hometrial_table_settings_tabs' ) ) ? hometrial_get_option( 'table_heading', 'hometrial_table_settings_tabs' ) : array();
+        $enable_login_limit = hometrial_get_option( 'enable_login_limit', 'hometrial_general_tabs', 'off' );
 
         $default_atts = array(
-            'wishsuite'    => Manage_Wishlist::instance(),
+            'hometrial'    => Manage_Hometrialist::instance(),
             'products'     => $products,
             'fields'       => $fields,
             'heading_txt'  => $custom_heading,
@@ -152,31 +152,31 @@ class Shortcode {
             return do_shortcode('[woocommerce_my_account]');
         }else{
             $atts = shortcode_atts( $default_atts, $atts, $content );
-            return Manage_Wishlist::instance()->table_html( $atts );
+            return Manage_Hometrialist::instance()->table_html( $atts );
         }
     }
 
     /**
-     * WishList Counter Shortcode
+     * HomeTriaList Counter Shortcode
      *
      * @param [array] $atts
      * @param string $content
      * @return void
      */
     public function counter_shortcode( $atts, $content = '' ){
-        wp_enqueue_style( 'wishsuite-frontend' );
+        wp_enqueue_style( 'hometrial-frontend' );
 
-        $enable_login_limit = wishsuite_get_option( 'enable_login_limit', 'wishsuite_general_tabs', 'off' );
+        $enable_login_limit = hometrial_get_option( 'enable_login_limit', 'hometrial_general_tabs', 'off' );
         $myaccount_url =  get_permalink( get_option('woocommerce_myaccount_page_id') );
 
-        $products   = Manage_Wishlist::instance()->get_products_data();
+        $products   = Manage_Hometrialist::instance()->get_products_data();
         if ( !is_user_logged_in() && $enable_login_limit == 'on' ) {
-            $button_text   = wishsuite_get_option( 'logout_button','wishsuite_general_tabs', 'Please login' );
+            $button_text   = hometrial_get_option( 'logout_button','hometrial_general_tabs', 'Please login' );
             $page_url      = $myaccount_url;
             $has_product   = false;
         }else{
-            $button_text = wishsuite_get_option( 'button_text','wishsuite_settings_tabs', 'Wishlist' );
-            $page_url = wishsuite_get_page_url();
+            $button_text = hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Hometrialist' );
+            $page_url = hometrial_get_page_url();
         }
 
         $default_atts = array(
@@ -187,7 +187,7 @@ class Shortcode {
         );
 
         $atts = shortcode_atts( $default_atts, $atts, $content );
-        return Manage_Wishlist::instance()->count_html( $atts );
+        return Manage_Hometrialist::instance()->count_html( $atts );
 
     }
 
@@ -198,15 +198,15 @@ class Shortcode {
      */
     public function icon_generate( $type = '' ){
 
-        $default_icon   = wishsuite_icon_list('default');
-        $default_loader = '<span class="wishsuite-loader">'.wishsuite_icon_list('loading').'</span>';
+        $default_icon   = hometrial_icon_list('default');
+        $default_loader = '<span class="hometrial-loader">'.hometrial_icon_list('loading').'</span>';
         
         $button_icon = '';
-        $button_text = ( $type === 'added' ) ? wishsuite_get_option( 'added_button_text','wishsuite_settings_tabs', 'Wishlist' ) : wishsuite_get_option( 'button_text','wishsuite_settings_tabs', 'Wishlist' );
-        $button_icon_type  = wishsuite_get_option( $type.'button_icon_type', 'wishsuite_style_settings_tabs', 'default' );
+        $button_text = ( $type === 'added' ) ? hometrial_get_option( 'added_button_text','hometrial_settings_tabs', 'Hometrialist' ) : hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Hometrialist' );
+        $button_icon_type  = hometrial_get_option( $type.'button_icon_type', 'hometrial_style_settings_tabs', 'default' );
 
         if( $button_icon_type === 'custom' ){
-            $button_icon = wishsuite_get_option( $type.'button_custom_icon','wishsuite_style_settings_tabs', '' );
+            $button_icon = hometrial_get_option( $type.'button_custom_icon','hometrial_style_settings_tabs', '' );
         }else{
             if( $button_icon_type !== 'none' ){
                 return $default_icon;

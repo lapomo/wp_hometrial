@@ -1,5 +1,5 @@
 <?php
-namespace WishSuite\Admin;
+namespace HomeTrial\Admin;
 /**
  * Settings Api class
  */
@@ -464,7 +464,7 @@ class Settings_Api {
         $label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File' );
         $remove_label = isset( $args['options']['button_remove_label'] ) ? $args['options']['button_remove_label'] : __( 'Remove' );
 
-        $save_file = ( $value != '' ) ? '<img src="'.esc_url( $value ).'" alt="'.esc_attr__( $label, 'wishsuite' ).'">' : '';
+        $save_file = ( $value != '' ) ? '<img src="'.esc_url( $value ).'" alt="'.esc_attr__( $label, 'hometrial' ).'">' : '';
         
         $html = '<div class="wpsa_display">'.$save_file.'</div>';
         $html  .= sprintf( '<input type="hidden" class="%1$s-text wpsa-url" id="%2$s[%3$s]" name="%2$s[%3$s]" value="%4$s"/>', $size, $args['section'], $args['id'], $value );
