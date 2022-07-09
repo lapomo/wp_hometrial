@@ -42,6 +42,13 @@ class Manage_Hometrialist {
         $user_id = get_current_user_id();
         $add_status = false;
 
+        // Since ajax multiple items can be added simultaneously. Therefore another check for the max number of items here.
+        $items_count = count( $this->get_hometrialist_products() );
+        if ( $items_count >= $this->max_num_of_items() ){
+            $add_status = false;
+            return $add_status;
+        }
+
         if( $user_id ){
 
             $args = [
