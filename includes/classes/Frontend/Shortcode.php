@@ -107,26 +107,29 @@ class Shortcode {
         $button_icon        = $this->icon_generate();
         $added_button_icon  = $this->icon_generate('added');
         
-        if( !empty( $button_text ) ){
-            $button_text = '<span class="hometrial-btn-text">'.$button_text.'</span>';
-        }
+        // if( !empty( $button_text ) ){
+        //     $button_text = '<span class="hometrial-btn-text">'.$button_text.'</span>';
+        // }
         
-        if( !empty( $button_exist_text ) ){
-            $button_exist_text = '<span class="hometrial-btn-text">'.$button_exist_text.'</span>';
-        }
+        // if( !empty( $button_exist_text ) ){
+        //     $button_exist_text = '<span class="hometrial-btn-text">'.$button_exist_text.'</span>';
+        // }
 
-        if( !empty( $button_added_text ) ){
-            $button_added_text = '<span class="hometrial-btn-text">'.$button_added_text.'</span>';
-        }
+        // if( !empty( $button_added_text ) ){
+        //     $button_added_text = '<span class="hometrial-btn-text">'.$button_added_text.'</span>';
+        // }
 
         // Shortcode atts
         $default_atts = array(
             'product_id'        => $product_id,
             'button_url'        => $page_url,
             'button_class'      => implode(' ', $button_class ),
-            'button_text'       => $button_icon.$button_text,
-            'button_added_text' => $added_button_icon.$button_added_text,
-            'button_exist_text' => $added_button_icon.$button_exist_text,
+            'button_icon'       => $button_icon,
+            'button_text'       => $button_text,
+            'button_added_icon' => $added_button_icon,
+            'button_added_text' => $button_added_text,
+            'button_exist_icon' => $added_button_icon,
+            'button_exist_text' => $button_exist_text,
             'has_product'       => $has_product,
             'template_name'     => ( $has_product === true ) ? 'exist' : 'add',
             'max_num_reached_msg' => $max_num_reached_msg,
