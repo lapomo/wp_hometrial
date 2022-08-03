@@ -223,7 +223,7 @@ class Manage_Hometrialist {
      */
     public function button_html( $atts ) {
         $button_attr = apply_filters( 'hometrial_button_arg', $atts );
-        return hometrial_get_template( 'hometrial-button-'.$atts['template_name'].'.php', $button_attr, false );
+        return hometrial_get_template( 'hometrial-button.php', $button_attr, false );
     }
 
     /**

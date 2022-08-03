@@ -26,9 +26,9 @@ a.hometrial-addtocart.added::after{
     position: absolute;
     left: 5px;
 }
-a.hometrial-button::after,.woocommerce a.button.hometrial-button::after{
+/* a.hometrial-button::after,.woocommerce a.button.hometrial-button::after{
     display: none;
-}
+} */
 a.hometrial-btn.loading,.woocommerce a.button.hometrial-btn.loading{
     opacity: 1;
 }
@@ -116,6 +116,7 @@ a.hometrial-button.loading img{
 
 .hometrial-limit-pop {
     visibility: hidden;
+    /* display: none; */
     width: 100%!important;
     background-color: white;
     text-align: center;
@@ -124,13 +125,14 @@ a.hometrial-button.loading img{
 
     position: absolute;
     z-index: 1000;
-    top: 100%;
+    top: 55px;
     box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.3);
 }
 
 .hometrial-button.hometrial-btn-disabled + .hometrial-limit-pop:hover,
 .hometrial-button.hometrial-btn-disabled:hover + .hometrial-limit-pop {
     visibility: visible;
+    /* display: block; */
 }
  
 @keyframes loading {

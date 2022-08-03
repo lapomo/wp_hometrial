@@ -222,10 +222,10 @@ class Admin_Fields {
                 array(
                     'name'        => 'button_text',
                     'label'       => __( 'Button Text', 'hometrial' ),
-                    'desc'        => __( 'Enter your hometrialist button text.', 'hometrial' ),
+                    'desc'        => __( 'Enter your hometrial button text.', 'hometrial' ),
                     'type'        => 'text',
-                    'default'     => __( 'Hometrialist', 'hometrial' ),
-                    'placeholder' => __( 'Hometrialist', 'hometrial' ),
+                    'default'     => __( 'Add to Home Trial', 'hometrial' ),
+                    'placeholder' => __( 'Add to Home Trial', 'hometrial' ),
                 ),
 
                 array(
@@ -233,17 +233,17 @@ class Admin_Fields {
                     'label'       => __( 'Product added text', 'hometrial' ),
                     'desc'        => __( 'Enter the product added text.', 'hometrial' ),
                     'type'        => 'text',
-                    'default'     => __( 'Product Added', 'hometrial' ),
-                    'placeholder' => __( 'Product Added', 'hometrial' ),
+                    'default'     => __( 'Remove from Home Trial', 'hometrial' ),
+                    'placeholder' => __( 'Remove from Home Trial', 'hometrial' ),
                 ),
 
                 array(
-                    'name'        => 'exist_button_text',
-                    'label'       => __( 'Already exists in the hometrialist text', 'hometrial' ),
-                    'desc'        => wp_kses_post( 'Enter the message for "<strong>already exists in the hometrialist</strong>" text.' ),
+                    'name'        => 'tooltip_button_text',
+                    'label'       => __( 'Tooltip Text', 'hometrial' ),
+                    'desc'        => __( 'Enter your hometrial tooltip text for the button on shop pages', 'hometrial' ),
                     'type'        => 'text',
-                    'default'     => __( 'Product already added', 'hometrial' ),
-                    'placeholder' => __( 'Product already added', 'hometrial' ),
+                    'default'     => __( 'Home Trial', 'hometrial' ),
+                    'placeholder' => __( 'Home Trial', 'hometrial' ),
                 ),
 
             ),

@@ -51,14 +51,19 @@ class Shortcode {
         if ( Manage_Hometrialist::instance()->is_product_in_hometrialist( $product_id ) ) {
             $has_product = true;
         }
+        
+        $show_text = false;
+        if(isset($atts['show_text']) && $atts['show_text'] === "true") {
+            $show_text = true;
+        }
 
         //my account url
         $myaccount_url =  get_permalink( get_option('woocommerce_myaccount_page_id') );
 
         // Fetch option data
-        $button_text        = hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Hometrialist' );
-        $button_added_text  = hometrial_get_option( 'added_button_text','hometrial_settings_tabs', 'Product Added' );
-        $button_exist_text  = hometrial_get_option( 'exist_button_text','hometrial_settings_tabs', 'Product already added' );
+        $button_text        = hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Add to Home Trial' );
+        $button_added_text  = hometrial_get_option( 'added_button_text','hometrial_settings_tabs', 'Remove from Home Trial' );
+        $button_tooltip_text  = hometrial_get_option( 'tooltip_button_text','hometrial_settings_tabs', 'Home Trial' );
         $shop_page_btn_position     = hometrial_get_option( 'shop_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
         $product_page_btn_position  = hometrial_get_option( 'product_btn_position', 'hometrial_settings_tabs', 'after_cart_btn' );
         $button_style               = hometrial_get_option( 'button_style', 'hometrial_style_settings_tabs', 'default' );
@@ -83,7 +88,6 @@ class Shortcode {
             $page_url      = $myaccount_url;
             $has_product   = false;
         }else{
-            $button_text = hometrial_get_option( 'button_text','hometrial_settings_tabs', 'Hometrialist' );
             $page_url = hometrial_get_page_url();
         }
 
@@ -93,8 +97,13 @@ class Shortcode {
             'hometrial-product-'.$product_page_btn_position,
         );
 
-        if( $button_style === 'themestyle' ){
+        if( $button_style === 'themestyle' && $show_text ){
             $button_class[] = 'button';
+            $button_class[] = 'alt';
+        }
+
+        if( $has_product ) {
+            $button_class[] = 'hometrial-btn-exist';
         }
 
         if ( $limit_reached === true && $has_product === false) {
@@ -128,10 +137,9 @@ class Shortcode {
             'button_text'       => $button_text,
             'button_added_icon' => $added_button_icon,
             'button_added_text' => $button_added_text,
-            'button_exist_icon' => $added_button_icon,
-            'button_exist_text' => $button_exist_text,
-            'has_product'       => $has_product,
-            'template_name'     => ( $has_product === true ) ? 'exist' : 'add',
+            'button_tooltip_text' => $button_tooltip_text,
+            'show_text'       => $show_text,
+            'added'              => $has_product,
             'max_num_reached_msg' => $max_num_reached_msg,
         );
         $atts = shortcode_atts( $default_atts, $atts, $content );

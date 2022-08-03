@@ -6,11 +6,14 @@
     // Add product in hometrialist table
     if( 'on' !== HomeTrial.option_data['btn_limit_login_off'] ){
         $body.on('click', 'a.hometrial-btn', function (e) {
+            e.preventDefault();
+            
             var $this = $(this),
                 id = $this.data('product_id'),
-                addedText = $this.data('added-text');
+                switchText = $this.data('switch-text'),
+                currentText = $this.children('.hometrial-btn-text').text();;
 
-            e.preventDefault();
+            
 
             $this.addClass('loading');
 
@@ -27,7 +30,8 @@
                         $this.removeClass('hometrial-btn');
                         $this.removeClass('loading');
                         $this.addClass('hometrial-btn-exist');
-                        $this.html( addedText );
+                        $this.children('.hometrial-btn-text').text( switchText );
+                        $this.data('switch-text', currentText);
                         $body.find('.hometrial-counter').html( response.data.item_count ); 
                         //TODO use item_count here to disable button / add extra class
                         // something like this
@@ -46,7 +50,8 @@
                 },
                 complete: function () {
                     $this.removeClass('loading');
-                    $this.html( addedText );
+                    $this.children('.hometrial-btn-text').text( switchText );
+                    $this.data('switch-text', currentText);
                 },
             });
 
@@ -54,17 +59,19 @@
 
         // give error message when trying to add more than limit home trial items
         $body.on('click', 'a.hometrial-btn-disabled', function(e) {
-            e.preventDefault();
+            // e.preventDefault();
             console.log('maximum number of home trial items reached');
         });
 
         // remove product from hometrialist in shop
         $body.on('click', 'a.hometrial-btn-exist', function (e) {
+            e.preventDefault();
             var $this = $(this),
                 id = $this.data('product_id'),
-                addedText = $this.data('added-text');
+                switchText = $this.data('switch-text'),
+                currentText = $this.children('.hometrial-btn-text').text();
 
-            e.preventDefault();
+            
 
             $this.addClass('loading');
 
@@ -81,7 +88,8 @@
                         $this.removeClass('hometrial-btn-exist');
                         $this.removeClass('loading');
                         $this.addClass('hometrial-btn');
-                        $this.html( addedText );
+                        $this.children('.hometrial-btn-text').text( switchText );
+                        $this.data('switch-text', currentText);
                         $body.find('.hometrial-counter').html( response.data.item_count ); 
                         //TODO use item_count here to disable button / add extra class
                         // something like this
@@ -100,7 +108,8 @@
                 },
                 complete: function () {
                     $this.removeClass('loading');
-                    $this.html( addedText );
+                    $this.children('.hometrial-btn-text').text( switchText );
+                    $this.data('switch-text', currentText);
                 },
             });
         });
