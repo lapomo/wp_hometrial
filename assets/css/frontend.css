@@ -424,7 +424,7 @@ a.hometrial-button.loading img{
     line-height: 1;
     width: 30px;
     color: #222;
-    margin: 0px 12px;
+    margin: 0px 8px 0 12px;
 }
 .hometrial-counter-area:not(.hometrial-has-text) span.hometrial-counter {
     display: flex;
