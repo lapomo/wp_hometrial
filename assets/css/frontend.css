@@ -104,7 +104,7 @@ a.hometrial-button.loading img{
 .hometrial-button.loading svg .heart,
 .hometrial-button.loading svg .check,
 .hometrial-button.loading:before {
-    animation:loading 1000ms 0ms infinite normal linear;
+    animation:loading 500ms 0ms infinite normal linear;
     transform-origin: center;
 }
 
